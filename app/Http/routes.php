@@ -12,5 +12,6 @@
 */
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    echo "API IN CONSTRUCTION";
+    //return $app->version();
 });
