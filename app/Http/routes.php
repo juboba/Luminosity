@@ -15,3 +15,7 @@ $app->get('/', function () use ($app) {
     echo "API IN CONSTRUCTION";
     //return $app->version();
 });
+
+$app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('tasks', 'TaskController@index');
+});
