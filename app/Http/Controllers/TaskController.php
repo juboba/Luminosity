@@ -9,8 +9,12 @@
 namespace App\Http\Controllers;
 
 
+use App\User;
+
 class TaskController extends Controller {
     public function index() {
-        return 'hello';
+        $user = User::findOrNew(1);
+
+        return response()->json($user);
     }
 }
