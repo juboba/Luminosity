@@ -33,4 +33,5 @@ $app->group(['prefix' => 'api/v0_01/user', 'namespace' => 'App\Http\Controllers'
 
     $app->post('enable/{id}', 'UserController@enableUser');
     $app->delete('disable/{id}', 'UserController@disableUser');
+    $app->post('register', 'UserController@storeUser');
 });
