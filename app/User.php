@@ -20,7 +20,7 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'name', 'surname', 'birthdate', 'direction',
     ];
 
     /**
@@ -31,4 +31,20 @@ class User extends Model implements
     protected $hidden = [
         'password',
     ];
+
+    /*
+     * Get all of the task for the user
+     */
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
+
+    public function country() {
+        return $this->hasOne(Country::class);
+    }
+
+    public function language() {
+        return $this->hasOne(Language::class);
+    }
+
 }
