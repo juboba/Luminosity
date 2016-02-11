@@ -19,7 +19,7 @@ class UserController extends Model {
      * Tasks of loggined user
      */
     public function index() {
-        $user = User::findOrNew(2);
+        $user = User::findOrNew(5);
 
         return response()->json($user);
     }
@@ -27,8 +27,8 @@ class UserController extends Model {
     /*
      * Modify the user fields
      */
-    public function updateUser(Request $request) {
-        $user = User::findOrNew(2);
+    public function updateUser(Request $request, $id) {
+        $user = User::findOrNew($id);
 
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
