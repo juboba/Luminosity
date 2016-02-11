@@ -18,4 +18,6 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('tasks', 'TaskController@index');
+    $app->post('tasks', 'TaskController@store');
+    $app->get('{id}', 'TaskController@task');
 });
