@@ -17,3 +17,10 @@ $factory->define(App\User::class, function ($faker) {
         'email' => $faker->email,
     ];
 });
+
+$factory->define(App\Task::class, function ($faker) {
+    return [
+        'name' => $faker->randomElement(array ("task1","task2","task3")),
+        'id_user' => $faker->randomElement(array(rand(1,50))),
+    ];
+});

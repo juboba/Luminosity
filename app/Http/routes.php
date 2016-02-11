@@ -12,6 +12,16 @@
 */
 
 $app->get('/', function () use ($app) {
-    echo "API IN CONSTRUCTION";
+    echo "API GUAY";
     //return $app->version();
 });
+
+$app->get('/task/{id}', 'TaskController@get');
+$app->get('/task/{id}/user', 'TaskController@getUser');
+$app->post('/task/add', 'TaskController@store');
+$app->delete('/task/{id}', 'TaskController@delete');
+
+$app->get('/user/{id}', 'UserController@get');
+$app->get('/user/{id}/tasks', 'UserController@getTasks');
+$app->post('/user/add', 'UserController@store');
+$app->put('/user/{id}', 'UserController@update');

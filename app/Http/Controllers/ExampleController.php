@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
+use Illuminate\Contracts\Queue\Job;
+
 class ExampleController extends Controller
 {
     /**
@@ -13,6 +16,12 @@ class ExampleController extends Controller
     {
         //
     }
+    public function get($task_id)
+    {
+        $task = $this->search(Task::class, $task_id);
 
-    //
+        $tasks = $task->user;
+
+        return $this->buildResponse($tasks, 200);
+    }
 }

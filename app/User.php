@@ -7,6 +7,7 @@ use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use App\Task;
 
 class User extends Model implements
     AuthenticatableContract,
@@ -31,4 +32,12 @@ class User extends Model implements
     protected $hidden = [
         'password',
     ];
+
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'id_user');
+    }
+
+
 }

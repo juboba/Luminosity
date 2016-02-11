@@ -8,6 +8,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +47,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        if($e instanceof NotFoundResourceException)
+        {
+            return response()->json(['message' => 'Resource not found', 'code' => 404], 404);
+        }
+
+        if(env('APP_DEBUG'))
+        {
+            return parent::render($request, $e);
+        }
+
+        if($e instanceof NotFoundHttpException)
+        {
+            return response()->json(['message' => 'Invalid Request', 'code' => 400], 400);
+        }
+        return response()->json(['message' => 'ERROR. Try later', 'code' => 500], 500);
     }
+
+
 }
