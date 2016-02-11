@@ -53,12 +53,4 @@ class UserController extends Model {
         return response()->json($user);
     }
 
-    /*public function destroyUser($id) {
-        $user = User::findOrNew($id);
-
-        $deleted = $user->delete();
-
-        return response()->json($deleted);
-    }*/
-
 }
