@@ -25,7 +25,7 @@ class Task extends Model {
     /*
      * Get language of the note
      */
-    public function languages() {
-
+    public function language() {
+        $this->hasOne(Language::class);
     }
 }
