@@ -25,7 +25,12 @@ $app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], fu
     $app->delete('task/{id}', 'TaskController@destroyTask');
 });
 
-$app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
-    $app->get('user', 'UserController@index');
-    $app->put('user', 'UserController@updateUser');
+$app->group(['prefix' => 'api/v0_01/user', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/', 'UserController@index');
+
+    $app->put('/', 'UserController@updateUser');
+    $app->delete('{id}', 'UserController@destroyUser');
+
+    $app->post('enable/{id}', 'UserController@enableUser');
+    $app->delete('disable/{id}', 'UserController@disableUser');
 });
