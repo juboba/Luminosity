@@ -48,6 +48,27 @@ class TaskController extends Controller {
         ]);
 
         return response()->json($created);
+    }
+
+    public function updateTask(Request $request, $id) {
+        $task = Task::findOrNew($id);
+
+        $task->name = $request->input('name');
+        $task->description = $request->input('description');
+
+        $task->save();
+
+        return response()->json($task);
 
     }
+
+    public function destroyTask($id) {
+        $task = Task::findOrNew($id);
+
+        $deleted = $task->delete();
+
+        return response()->json($deleted);
+
+    }
+
 }

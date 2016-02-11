@@ -18,6 +18,14 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('tasks', 'TaskController@index');
-    $app->post('tasks', 'TaskController@store');
-    $app->get('{id}', 'TaskController@task');
+    $app->get('task/{id}', 'TaskController@task');
+
+    $app->post('task', 'TaskController@store');
+    $app->put('task/{id}', 'TaskController@updateTask');
+    $app->delete('task/{id}', 'TaskController@destroyTask');
+});
+
+$app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('user', 'UserController@index');
+    $app->put('user', 'UserController@updateUser');
 });
