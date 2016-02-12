@@ -18,11 +18,11 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('tasks', 'TaskController@index');
-    $app->get('task/{id}', 'TaskController@task');
+    $app->get('tasks/{id}', 'TaskController@task');
 
-    $app->post('task', 'TaskController@store');
-    $app->put('task/{id}', 'TaskController@updateTask');
-    $app->delete('task/{id}', 'TaskController@destroyTask');
+    $app->post('tasks', ['middleware' => 'App\Http\Middleware\TaskValidate'], 'TaskController@store');
+    $app->put('tasks/{id}', 'TaskController@updateTask');
+    $app->delete('tasks/{id}', 'TaskController@destroyTask');
 });
 
 $app->group(['prefix' => 'api/v0_01/user', 'namespace' => 'App\Http\Controllers'], function ($app) {

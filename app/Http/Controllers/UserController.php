@@ -14,12 +14,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class UserController extends Model {
-
+    protected $user = 1;
     /*
      * Tasks of loggined user
      */
     public function index() {
-        $user = User::findOrNew(5);
+        $user = User::findOrNew($this->user);
 
         return response()->json($user);
     }

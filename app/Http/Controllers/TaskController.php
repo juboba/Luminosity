@@ -14,12 +14,12 @@ use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller {
-
+    protected $user = 1;
     /*
      * Return tasks that belongs to the loggined user.
      */
     public function index() {
-        $tasks = User::findOrNew(1)->tasks;
+        $tasks = User::findOrNew($this->user)->tasks;
         return response()->json($tasks);
     }
 
@@ -35,19 +35,16 @@ class TaskController extends Controller {
      * Create task
      */
     public function store(Request $request) {
-        $user = User::findOrNew(1);
+        $user = User::findOrNew($this->user);
 
-        /*$request->user()->tasks()->create([
+        $task = $user->tasks()->create([
             'name' => $request->name,
-        ]);*/
-
-        $created = $user->tasks()->create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'language_id' => $request->language_id
+            'language_id' => $request->language_id,
+            'description' => $request->description
         ]);
 
-        return response()->json($created);
+        return response()->json($task);
+
     }
 
     public function updateTask(Request $request, $id) {
