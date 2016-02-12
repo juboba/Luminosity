@@ -16,12 +16,8 @@ class ExampleController extends Controller
     {
         //
     }
-    public function get($task_id)
+    public function run()
     {
-        $task = $this->search(Task::class, $task_id);
 
-        $tasks = $task->user;
-
-        return $this->buildResponse($tasks, 200);
     }
 }

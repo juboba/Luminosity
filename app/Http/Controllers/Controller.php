@@ -8,9 +8,9 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class Controller extends BaseController
 {
-    public function buildResponse($data, $codigo)
+    public function buildResponse($data, $code)
     {
-        return response()->json(['data' => $data], $codigo);
+        return response()->json(['data' => $data], $code);
     }
 
     public function ErrorResponse($msg, $code)

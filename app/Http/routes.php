@@ -25,3 +25,8 @@ $app->get('/user/{id}', 'UserController@get');
 $app->get('/user/{id}/tasks', 'UserController@getTasks');
 $app->post('/user/add', 'UserController@store');
 $app->put('/user/{id}', 'UserController@update');
+
+$app->get('/setcache/{key}/{value}/{minutes}', 'CacheController@setCache');
+$app->get('/getcache/{key}', 'CacheController@getCache');
+
+$app->get('/login', 'LoginController@login');

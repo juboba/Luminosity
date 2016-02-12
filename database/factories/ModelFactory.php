@@ -24,3 +24,4 @@ $factory->define(App\Task::class, function ($faker) {
         'id_user' => $faker->randomElement(array(rand(1,50))),
     ];
 });
+
