@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model {
     protected $fillable = [
-        'title', 'name', 'description', 'language_id'
+        'name', 'description', 'language_id'
     ];
 
     /*

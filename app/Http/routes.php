@@ -20,7 +20,7 @@ $app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], fu
     $app->get('tasks', 'TaskController@index');
     $app->get('tasks/{id}', 'TaskController@task');
 
-    $app->post('tasks', ['middleware' => 'App\Http\Middleware\TaskValidate'], 'TaskController@store');
+    $app->post('tasks', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
     $app->put('tasks/{id}', 'TaskController@updateTask');
     $app->delete('tasks/{id}', 'TaskController@destroyTask');
 });

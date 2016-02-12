@@ -8,10 +8,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
+use App\Jobs\CreateTaskJob;
 use App\Task;
 use App\User;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller {
     protected $user = 1;
@@ -35,16 +36,24 @@ class TaskController extends Controller {
      * Create task
      */
     public function store(Request $request) {
-        $user = User::findOrNew($this->user);
+//        $user = User::findOrNew(1);
+//
+//        /*$request->user()->tasks()->create([
+//            'name' => $request->name,
+//        ]);*/
+//
+//        $created = $user->tasks()->create([
+//            'name' => $request->name,
+//            'description' => $request->description,
+//            'language_id' => $request->language_id
+//        ]);
+//
+//        return response()->json($created);
 
-        $task = $user->tasks()->create([
-            'name' => $request->name,
-            'language_id' => $request->language_id,
-            'description' => $request->description
-        ]);
+        $job = (new CreateTaskJob($request->all()))->onQueue('tasks');
+        $this->dispatch($job);
 
-        return response()->json($task);
-
+        return response()->json(array('success' => true));
     }
 
     public function updateTask(Request $request, $id) {
