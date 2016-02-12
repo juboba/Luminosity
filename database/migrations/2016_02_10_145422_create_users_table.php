@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->string('email');
             $table->string('direction');
+            $table->boolean('enabled');
             $table->date('birthday')->nullable();
             $table->integer('language_id')->unsigned();
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');

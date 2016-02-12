@@ -1,0 +1,58 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list />
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://luminosity.local" />
+  <option name="urlPath" value="api/v0_01/user/register" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="name" />
+        <option name="value" value="Manuel" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="surname" />
+        <option name="value" value="queseyo" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="email" />
+        <option name="value" value="yhensel@yo.com" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="direction" />
+        <option name="value" value="carrer/cerdres" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="birthday" />
+        <option name="value" value="1989/12/11" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="language_id" />
+        <option name="value" value="1" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="country_id" />
+        <option name="value" value="1" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="false" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

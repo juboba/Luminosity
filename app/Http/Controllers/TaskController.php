@@ -15,12 +15,12 @@ use App\Task;
 use App\User;
 
 class TaskController extends Controller {
-
+    protected $user = 1;
     /*
      * Return tasks that belongs to the loggined user.
      */
     public function index() {
-        $tasks = User::findOrNew(1)->tasks;
+        $tasks = User::findOrNew($this->user)->tasks;
         return response()->json($tasks);
     }
 
