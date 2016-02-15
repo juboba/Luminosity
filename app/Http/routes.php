@@ -29,4 +29,8 @@ $app->put('/user/{id}', 'UserController@update');
 $app->get('/setcache/{key}/{value}/{minutes}', 'CacheController@setCache');
 $app->get('/getcache/{key}', 'CacheController@getCache');
 
-$app->get('/login', 'LoginController@login');
+$app->get('/login', 'ClientController@login');
+$app->get('/routes', 'RoutesController@showRoutes');
+//$app->post('login', ['middleware' => 'auth', function (){
+//    echo 'guay';
+//}]);

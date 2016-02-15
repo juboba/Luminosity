@@ -14,6 +14,9 @@ class Client extends Model implements
     AuthorizableContract
 {
     use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable;
+
+    protected $table = 'clients';
 
     /**
      * The attributes that are mass assignable.
