@@ -73,6 +73,7 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -83,8 +84,10 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app/scripts/app.js"></script>
+        <script src="app/scripts/controllers/main.js"></script>
         <script src="app/scripts/controllers/task.js"></script>
         <script src="app/scripts/controllers/user.js"></script>
+        <script src="app/scripts/services/user.js"></script>
         <script src="app/scripts/services/task.js"></script>
         <!-- endbuild -->
 </body>
