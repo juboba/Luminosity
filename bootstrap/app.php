@@ -59,8 +59,8 @@ $app->singleton(
 |
 */
 
-$app->middleware(
-    App\Http\Middleware\TaskValidate::class
+$app->routeMiddleware(
+    [App\Http\Middleware\TaskValidate::class]
 );
 
 // $app->middleware([

@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskValidate {
     public function handle($request, Closure $next){
-        Validator::make($request->all(), [
-            'name' => 'required|max:10'
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|max:10',
+            'description' => 'required|max:300',
         ]);
+
+        if ($validate->fails()) {
+            return response()->json($validate->errors(), 403);
+        }
+
         return $next($request);
     }
 }

@@ -15,16 +15,6 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
-$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
-
-    $app->get('/', 'TaskController@index');
-    $app->get('{id}', 'TaskController@show');
-
-    $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
-    $app->put('{id}', 'TaskController@updateTask');
-    $app->delete('{id}', 'TaskController@destroyTask');
-});
-
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('/', 'UserController@index');
     $app->get('{id}', 'UserController@show');
@@ -34,4 +24,16 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
     $app->post('enable/{id}', 'UserController@enable');
     $app->delete('disable/{id}', 'UserController@disable');
     $app->post('register', 'UserController@store');
+
+    $app->get('{id}/tasks', 'TaskController@allForUser');
+});
+
+$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+
+    $app->get('/', 'TaskController@index');
+    $app->get('{id}', 'TaskController@show');
+
+    $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
+    $app->put('{id}', 'TaskController@updateTask');
+    $app->delete('{id}', 'TaskController@destroyTask');
 });
