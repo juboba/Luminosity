@@ -11,9 +11,20 @@
 |
 */
 
+// https://github.com/fzaninotto/Faker#formatters
+
 $factory->define(App\User::class, function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+    ];
+});
+
+$factory->define(App\Task::class, function ($faker) {
+    return [
+        'name' => $faker->name,
+        'description' => $faker->sentence,
+        'language_id' => $faker->randomNumber,
+        'user_id' => $faker->randomNumber,
     ];
 });
