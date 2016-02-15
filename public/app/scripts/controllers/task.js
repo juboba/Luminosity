@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name publicApp.controller:MainCtrl
+ * @name publicApp.controller:TaskCtrl
  * @description
- * # MainCtrl
+ * # TaskCtrl
  * Controller of the publicApp
  */
 angular.module('publicApp')
@@ -13,12 +13,10 @@ angular.module('publicApp')
           $scope.tasks = [];
 
           tasks.forEach(function(task){
-              // Parse date:
-              
               $scope.tasks.push({
                   name: task.name,
                   description: task.description,
-                  created_at: new Date(task.created_at)
+                  created_at: moment(task.created_at).toDate()
               });
 
           });

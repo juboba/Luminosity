@@ -17,23 +17,23 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'app/views/main.html',
-        controller: 'UserCtrl',
+        controller: 'MainCtrl',
         controllerAs: 'main'
       })
       .when('/users', {
         templateUrl: 'app/views/users.html',
         controller: 'UserCtrl',
-        controllerAs: 'main'
+        controllerAs: 'userCtrl'
       })
       .when('/tasks', {
         templateUrl: 'app/views/tasks.html',
         controller: 'TaskCtrl',
-        controllerAs: 'about'
+        controllerAs: 'taskCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
   })
     .config(function(RestangularProvider){
-        //RestangularProvider.setBaseUrl('api/v0_01');
+        RestangularProvider.setBaseUrl('api/v0_01');
     });

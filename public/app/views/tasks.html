@@ -18,7 +18,7 @@
         <tr ng-repeat="task in tasks">
             <td>{{ task.name }}</td>
             <td>{{ task.description }}</td>
-            <td>{{ task.created_at | date: "d-M-Y"}}</td>
+            <td>{{ task.created_at | date }}</td>
         </tr>
       </tbody>
   </table>
