@@ -1,0 +1,25 @@
+<style>
+ table{
+     width: 100%;
+     }
+</style>
+
+<div class="row marketing">
+  <h4>Tasks</h4>
+  <table>
+      <thead>
+          <tr>
+              <th><b>Name</b></th>
+              <th><b>Description</b></th>
+              <th><b>Date of Creation</b></th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="task in tasks">
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.created_at | date }}</td>
+        </tr>
+      </tbody>
+  </table>
+</div>
