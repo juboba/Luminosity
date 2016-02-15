@@ -21,8 +21,8 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
     $app->put('{id}', 'UserController@update');
     $app->delete('{id}', 'UserController@destroy');
 
-    $app->post('enable/{id}', 'UserController@enable');
-    $app->delete('disable/{id}', 'UserController@disable');
+    $app->post('{id}/enable', 'UserController@enable');
+    $app->post('{id}/disable', 'UserController@disable');
     $app->post('register', 'UserController@store');
 
     $app->get('{id}/tasks', 'TaskController@allForUser');

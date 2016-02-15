@@ -59,30 +59,6 @@ class UserController extends Model {
     }
 
     /*
-     * Disable the User
-     */
-    public function disable($id) {
-        $user = User::findOrNew($id);
-
-        $user->enabled = false;
-        $user->save();
-
-        return response()->json($user);
-    }
-
-    /*
-     * Enable the user
-     */
-    public function enable($id) {
-        $user = User::findOrNew($id);
-
-        $user->enabled = true;
-        $user->save();
-
-        return response()->json($user);
-    }
-
-    /*
      * Register an user
      */
     public function store(Request $request) {
@@ -100,5 +76,29 @@ class UserController extends Model {
 
         return response()->json($user);
 
+    }
+
+    /*
+     * Disable the User
+     */
+    public function disable($id) {
+        $user = User::findOrFail();
+
+        $user->enabled = false;
+        $user->save();
+
+        return response()->json($user);
+    }
+
+    /*
+     * Enable the user
+     */
+    public function enable($id) {
+        $user = User::findOrNew($id);
+
+        $user->enabled = true;
+        $user->save();
+
+        return response()->json($user);
     }
 }
