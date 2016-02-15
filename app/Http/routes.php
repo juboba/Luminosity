@@ -16,6 +16,10 @@ $app->get('/', function () use ($app) {
     //return $app->version();
 });
 
-$app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers'], function ($app) {
+$app->group(['prefix' => 'api/v0_01', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
     $app->get('tasks', 'TaskController@index');
+});
+
+$app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/', 'AuthController@authorizeUser');
 });
