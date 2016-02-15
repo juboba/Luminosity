@@ -5,19 +5,24 @@ namespace App\Http\Controllers;
 use App\Task;
 use Illuminate\Contracts\Queue\Job;
 
-class ExampleController extends Controller
+class EClientController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-    public function run()
-    {
 
+
+public function auth(Request $request)
+{
+    // create our user data for the authentication
+    $userdata = array(
+        'email'     => Input::get('username'),
+        'password'  => Input::get('password')
+    );
+
+    // attempt to do the login
+    if (Auth::attempt($userdata)) {
+          echo 'SUCCESS!';
+    } else {
+       echo 'UNSUCCES';
     }
+
+}
 }

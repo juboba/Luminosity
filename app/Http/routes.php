@@ -34,3 +34,6 @@ $app->get('/routes', 'RoutesController@showRoutes');
 //$app->post('login', ['middleware' => 'auth', function (){
 //    echo 'guay';
 //}]);
+$app->post('/oauth/access_token', function() use($app) {
+    return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());
+});
