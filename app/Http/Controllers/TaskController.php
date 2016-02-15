@@ -38,7 +38,6 @@ class TaskController extends Controller {
      */
     public function allForUser($uid) {
         $response = User::find($uid)->tasks()->get();
-
         return response()->json($response, 200);
     }
 
@@ -46,25 +45,23 @@ class TaskController extends Controller {
      * Create task
      */
     public function store(Request $request) {
-        $user = User::findOrNew(1);
-
-        /*$request->user()->tasks()->create([
-            'name' => $request->name,
-        ]);*/
-
-        $created = $user->tasks()->create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'language_id' => $request->language_id
-        ]);
-
-        return response()->json($created);
-/*
+//        /*$user = User::findOrNew(1);
+//
+//        /*$request->user()->tasks()->create([
+//            'name' => $request->name,
+//        ]);*/
+//
+//        $created = $user->tasks()->create([
+//            'name' => $request->name,
+//            'description' => $request->description,
+//            'language_id' => $request->language_id
+//        ]);
+//
+//        return response()->json($created);
         $job = (new CreateTaskJob($request->all()))->onQueue('tasks');
         $this->dispatch($job);
 
         return response()->json(array('success' => true));
-*/
     }
 
     /*public function updateTask(Request $request, $id) {
