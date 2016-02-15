@@ -30,10 +30,12 @@ class UserController extends Model {
     public function show($id) {
         $user = User::find($id);
 
-        if ($user)
+        if ($user){
             return response()->json($user);
-        else
+        }
+        else {
             return response()->json('User not found', 404);
+        }
     }
 
     /*
@@ -82,23 +84,39 @@ class UserController extends Model {
      * Disable the User
      */
     public function disable($id) {
-        $user = User::findOrFail();
+        $user = User::find($id);
+        //dd($user);
 
-        $user->enabled = false;
-        $user->save();
+        if ($user!=NULL) {
 
-        return response()->json($user);
+            $user->enabled = false;
+            $user->save();
+
+            return response()->json($user);
+        }
+        else {
+            return response()->json(array('ErrMsg' => 'User not found'), 404);
+        }
+
     }
 
     /*
      * Enable the user
      */
     public function enable($id) {
-        $user = User::findOrNew($id);
+        $user = User::find($id);
+        //dd($user);
 
-        $user->enabled = true;
-        $user->save();
+        if ($user!=NULL) {
 
-        return response()->json($user);
+            $user->enabled = true;
+            $user->save();
+
+            return response()->json($user);
+        }
+        else {
+            return response()->json(array('ErrMsg' => 'User not found'), 404);
+        }
+
     }
 }
