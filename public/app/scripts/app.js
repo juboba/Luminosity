@@ -35,5 +35,5 @@ angular
       });
   })
     .config(function(RestangularProvider){
-        //RestangularProvider.setBaseUrl('api/v0_01');
+        RestangularProvider.setBaseUrl('api/v0_01');
     });

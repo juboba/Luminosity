@@ -12,8 +12,7 @@
 */
 
 $app->get('/', function () use ($app) {
-    echo "API IN CONSTRUCTION";
-    //return $app->version();
+        return view('index');
 });
 
 $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
