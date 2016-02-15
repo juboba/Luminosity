@@ -12,32 +12,27 @@
 */
 
 $app->get('/', function () use ($app) {
-    return view('index');
+    echo "API IN CONSTRUCTION";
+    //return $app->version();
 });
 
-$app->group(['prefix' => 'api/v0_01'], function ($app) {
+$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
-    $app->group(['prefix' => 'tasks', 'namespace' => 'App\Http\Controllers'], function ($app) {
-        $app->get('/', 'TaskController@index');
+    $app->get('/', 'TaskController@index');
+    $app->get('{id}', 'TaskController@task');
 
-        $app->put('/{id}', 'TaskController@updateTask');
+    $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
+    $app->put('{id}', 'TaskController@updateTask');
+    $app->delete('{id}', 'TaskController@destroyTask');
+});
 
-        $app->delete('tasks/{id}', 'TaskController@destroyTask');
+$app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/', 'UserController@index');
 
-        $app->get('/{id}', 'TaskController@task');
+    $app->put('{id}', 'UserController@updateUser');
+    $app->delete('{id}', 'UserController@destroyUser');
 
-        $app->post('tasks', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
-    });
-
-    $app->group(['prefix' => 'user', 'namespace' => 'App\Http\Controllers'], function ($app) {
-        $app->get('/', 'UserController@index');
-
-        $app->put('/{id}', 'UserController@updateUser');
-        $app->delete('{id}', 'UserController@destroyUser');
-
-        $app->post('enable/{id}', 'UserController@enableUser');
-        $app->delete('disable/{id}', 'UserController@disableUser');
-        $app->post('register', 'UserController@storeUser');
-    });
-
+    $app->post('enable/{id}', 'UserController@enableUser');
+    $app->delete('disable/{id}', 'UserController@disableUser');
+    $app->post('register', 'UserController@storeUser');
 });
