@@ -1,4 +1,27 @@
-<h2>These are the registered users:</h2>
-<ul>
-    <li ng-repeat="user in users"><span ng-bind="user.name"></span> <span ng-bind="user.surname"></span></li>
-</ul>
+<div ng-if="!user">
+    <h2>These are the registered users:</h2>
+    <ul>
+        <li ng-repeat="user in users">
+            <span ng-bind="user.name"></span>
+            <span ng-bind="user.surname"></span>
+            (<a href="mailto:{{ user.email }}"ng-bind="user.email"></a>)
+            [<a href="#/users/{{ user.id }}">Profile</a>]
+        </li>
+    </ul>
+</div>
+<div ng-if="user">
+    <h2>{{user.name}}'s Profile</h2>
+    <ul>
+        <li><b>Name:</b> {{ user.name }}</li>
+        <li><b>Surname:</b> {{user.surname}}</li>
+        <li><b>Email:</b> {{user.email}}</li>
+        <li><b>Address (Direction):</b> {{user.direction}}</li>
+        <li><b>Birthday</b>: {{user.birthday}}</li>
+    </ul>
+
+    <h3>Tasks:</h3>
+    <ul>
+        <li ng-repeat="task in tasks">{{ task.name }}</li>
+        <li ng-show="!tasks.length">There are no tasks to show.</li>
+    </ul>
+</div>

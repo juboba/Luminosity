@@ -11,11 +11,18 @@ angular.module('publicApp')
   .service('User', function (Restangular) {
     // AngularJS will instantiate a singleton by calling "new" on this function
       return {
-          all: function(params){
-              return Restangular.all('users').getList(params);
+          all: function(){
+              return Restangular.all('users');
           },
-          one: function(id, params){
-              return Restangular.one('users', id, params);
+          one: function(id){
+              return Restangular.one('users', id);
+          },
+          get: function(id, params){
+              if (id){
+                  return Restangular.one('users', id).get(params);
+              } else {
+                  return Restangular.all('users').getList(params);
+              }
           }
       };
   });

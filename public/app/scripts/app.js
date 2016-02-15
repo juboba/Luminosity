@@ -25,6 +25,11 @@ angular
         controller: 'UserCtrl',
         controllerAs: 'userCtrl'
       })
+      .when('/users/:id', {
+        templateUrl: 'app/views/users.html',
+        controller: 'UserCtrl',
+        controllerAs: 'userCtrl'
+      })
       .when('/tasks', {
         templateUrl: 'app/views/tasks.html',
         controller: 'TaskCtrl',
