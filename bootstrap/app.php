@@ -59,9 +59,13 @@ $app->singleton(
 |
 */
 
- /*$app->middleware([
-    App\Http\Middleware\ExampleMiddleware::class
- ]);*/
+$app->middleware(
+    App\Http\Middleware\TaskValidate::class
+);
+
+// $app->middleware([
+//    App\Http\Middleware\ExampleMiddleware::class
+// ]);
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\HttpBasicAuthentication::class,
