@@ -41,4 +41,7 @@ angular
   })
     .config(function(RestangularProvider){
         RestangularProvider.setBaseUrl('api/v0_01');
+        Restangular.setDefaultHeaders({
+            'Authorization': 'Bearer ' + 'anVib2JhOmF5YWh1YXNjYQo='
+        });
     });

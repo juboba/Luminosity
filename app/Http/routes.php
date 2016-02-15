@@ -15,7 +15,11 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
-$app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers'], function ($app) {
+$app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/', 'AuthController@authorizeUser');
+});
+
+$app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
     $app->get('/', 'UserController@index');
     $app->get('{id}', 'UserController@show');
     $app->put('{id}', 'UserController@update');
@@ -24,16 +28,13 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
     $app->post('{id}/enable', 'UserController@enable');
     $app->post('{id}/disable', 'UserController@disable');
     $app->post('register', 'UserController@store');
-
-    $app->get('{id}/tasks', 'TaskController@allForUser');
 });
 
-$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+
+$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
 
     $app->get('/', 'TaskController@index');
-    $app->get('{id}', 'TaskController@show');
-
     $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
-    $app->put('{id}', 'TaskController@updateTask');
+    $app->get('{id}', 'TaskController@show');
     $app->delete('{id}', 'TaskController@destroyTask');
 });
