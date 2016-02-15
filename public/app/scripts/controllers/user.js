@@ -10,6 +10,6 @@
 angular.module('publicApp')
     .controller('UserCtrl', function ($scope, User) {
         User.all().then(function(users){
-            console.log(users);
+            $scope.users = users;
         });
   });
