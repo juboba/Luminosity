@@ -19,7 +19,7 @@ class UserController extends Model {
      * Tasks of loggined user
      */
     public function index() {
-        $user = User::findOrNew($this->user);
+        $user = User::all();
 
         return response()->json($user);
     }
