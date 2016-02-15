@@ -18,7 +18,7 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
 
     $app->get('/', 'TaskController@index');
-    $app->get('{id}', 'TaskController@task');
+    $app->get('{id}', 'TaskController@show');
 
     $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
     $app->put('{id}', 'TaskController@updateTask');
@@ -27,11 +27,11 @@ $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers
 
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('/', 'UserController@index');
+    $app->get('{id}', 'UserController@show');
+    $app->put('{id}', 'UserController@update');
+    $app->delete('{id}', 'UserController@destroy');
 
-    $app->put('{id}', 'UserController@updateUser');
-    $app->delete('{id}', 'UserController@destroyUser');
-
-    $app->post('enable/{id}', 'UserController@enableUser');
-    $app->delete('disable/{id}', 'UserController@disableUser');
-    $app->post('register', 'UserController@storeUser');
+    $app->post('enable/{id}', 'UserController@enable');
+    $app->delete('disable/{id}', 'UserController@disable');
+    $app->post('register', 'UserController@store');
 });
