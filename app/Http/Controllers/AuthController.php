@@ -54,11 +54,12 @@ class AuthController extends Controller {
         return response('Unauthorized: You must send authorization', 401);
       }
 
-      $db_user = User::where('username','=',$user)->where('password','=',base64_encode($psswd))->get();
-      if(!$db_user) {
-        return response('Unauthorized: User or password incorrect');
+      $db_user = User::where('username','=',$user)->where('password','=',base64_encode($psswd))->first();
+
+      if(!isset($db_user)) {
+        return response('Unauthorized: User not exist');
       } else {
-        if ($db_user->enabled != 1) {
+        if ($db_user->enabled != true) {
           return response('Unauthorized: User inactive');
         }
       }
@@ -75,9 +76,11 @@ class AuthController extends Controller {
       //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
 
        $token = hash('sha256', $passphrase);
-       $expiresAt = Carbon::now()->addMinutes(20);
+       $expiresAt = Carbon::now()->addMinutes(50);
 
-       if(Cache::put($token, $user, $expiresAt)) {
+       Cache::put($token, $user, $expiresAt);
+
+       if(Cache::has($token)) {
          return response()->json(['api_token' => $token]);
        } else {
          return response('Unauthorized: User or password are wrong', 401);;
@@ -97,5 +100,4 @@ class AuthController extends Controller {
       }
       return true;
     }
-
 }
