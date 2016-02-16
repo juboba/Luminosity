@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Jobs\CreateTaskJob;
 use App\Task;
 use App\User;
@@ -25,6 +26,7 @@ class TaskController extends Controller {
      * @apiExample {curl} Example usage:
      *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/tasks
      *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks
      */
     public function index() {
         $tasks = User::findOrNew($this->user)->tasks;
