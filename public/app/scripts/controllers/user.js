@@ -12,15 +12,15 @@ angular.module('publicApp')
 
         // We're getting just one user profile:
         if ($routeParams.id) {
-            User.get($routeParams.id).then(function(user){
-                $scope.user = user;
-
+            User.get($routeParams.id, {
                 // Let's get his tasks:
-                User.one(user.id).all('tasks').getList().then(function(tasks){
-                    $scope.tasks = tasks;
-                }, function(error){
+                tasks: true
+            }).then(function(user){
+                $scope.user = user;
+                $scope.tasks = user.tasks;
+
+            }, function(error){
                     alert('Tasks: ' + error.status + ' ' + error.statusText);
-                });
             });
         }
 
