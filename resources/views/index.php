@@ -39,9 +39,10 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Main</a></li>
+              <li class="active"><a href="#/">Login</a></li>
               <li><a href="#/users">Users</a></li>
               <li><a ng-href="#/tasks">Tasks</a></li>
+              <li><a ng-href="#/logout">Logout</a></li>
             </ul>
           </div>
         </div>
@@ -79,12 +80,14 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/restangular/dist/restangular.js"></script>
+    <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app/scripts/app.js"></script>
         <script src="app/scripts/controllers/main.js"></script>
+        <script src="app/scripts/controllers/logout.js"></script>
         <script src="app/scripts/controllers/task.js"></script>
         <script src="app/scripts/controllers/user.js"></script>
         <script src="app/scripts/services/user.js"></script>
