@@ -8,7 +8,7 @@
  * Controller of the publicApp
  */
 angular.module('publicApp')
-    .controller('UserCtrl', function ($scope, $routeParams, User, Task) {
+    .controller('UserCtrl', function ($scope, $routeParams, User, Task, $location) {
 
         // We're getting just one user profile:
         if ($routeParams.id) {
@@ -20,7 +20,8 @@ angular.module('publicApp')
                 $scope.tasks = user.tasks;
 
             }, function(error){
-                    alert('Tasks: ' + error.status + ' ' + error.statusText);
+                alert('Users: ' + error.status + ' ' + error.statusText);
+                $location.url('/login');
             });
         }
 
@@ -28,6 +29,9 @@ angular.module('publicApp')
         else {
             User.get().then(function(users){
                 $scope.users = users;
+            }, function(error){
+                alert('Users: ' + error.status + ' ' + error.statusText);
+                $location.url('/login');
             });
         }
   });

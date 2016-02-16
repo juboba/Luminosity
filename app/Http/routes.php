@@ -15,12 +15,19 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
+$app->group(['prefix' => '/', 'namespace' => 'App\Http\Controllers' ], function() use ($app) {
+    $app->get('/', function() use ($app) {
+        return view('index');
+    });
+});
+
 $app->get('/apidoc', function () use ($app) {
     return view('docs/index');
 });
 
-$app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], function ($app) {
-    $app->get('/', 'AuthController@authorizeUser');
+$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/login', 'AuthController@authorizeUser');
+    $app->post('/register', 'UserController@store');
 });
 
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
@@ -39,6 +46,7 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
 
 $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
     $app->options('/', 'TaskController@options');
+    $app->options('{id}', 'TaskController@options');
     $app->get('/', 'TaskController@index');
     $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
     $app->get('{id}', 'TaskController@show');
