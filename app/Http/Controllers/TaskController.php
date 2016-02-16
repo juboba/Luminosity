@@ -119,6 +119,7 @@ class TaskController extends Controller {
         $job = (new CreateTaskJob($request->all()))->onQueue('tasks');
         $this->dispatch($job);
 
+
         return response()->json(array('success' => true));
     }
 

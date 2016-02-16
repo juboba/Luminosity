@@ -34,8 +34,8 @@ class UserController extends Model {
             if ($request->has('tasks')) {
                 $user->tasks;
             }
-        } else {
-            return response()->json('User not found', 404);
+            $user->Country;
+            $user->Language;
         }
 
         return response()->json($user);
@@ -68,14 +68,17 @@ class UserController extends Model {
      * Register an user
      */
     public function store(Request $request) {
+        //dd($request->all());
 
         $user = User::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
+            'username' => $request->username,
+            'password' => base64_encode($request->password),
             'direction' => $request->direction,
             'enabled' => true,
-            'birthday' => $request->birthday,
+            'birthday' => new \DateTime($request->birthday),
             'language_id' => $request->language_id,
             'country_id' => $request->country_id
         ]);
