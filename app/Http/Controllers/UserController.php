@@ -28,19 +28,18 @@ class UserController extends Model {
      * Show the user from an id
      */
     public function show(Request $request, $id) {
+        $user = User::findOrFail($id);
 
-
-        $user = User::find($id);
-
-        if ($user){
-            if ($request->has('tasks')){
+        if ($user) {
+            if ($request->has('tasks')) {
                 $user->tasks;
             }
-            return response()->json($user);
-        }
-        else {
+        } else {
             return response()->json('User not found', 404);
         }
+
+        return response()->json($user);
+
     }
 
     /*

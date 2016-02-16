@@ -6,6 +6,8 @@
  * Time: 10:35
  */
 
+namespace App\Http\Controllers;
+
 use App\Jobs\CreateTaskJob;
 use App\Task;
 use App\User;
