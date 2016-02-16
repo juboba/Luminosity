@@ -78,18 +78,8 @@ class TaskController extends Controller {
      * @apiSuccess {String} description Task description.
      * @apiSuccess {Number} language_id Language ID.
      *
-     * @apiSampleRequest http://localhost:80
-     * @apiHeaderExample {json} Header-Example:
-     *     {
-     *       "Accept-Encoding": "Authorization:Bearer <token>",
-     *       "Content-Type:application/json"
-     *     }
-     * @apiParamExample {json} Request-Example:
-     *     {"name":"Task name", "description":"Task description", "language_id":"1"}
-     * @apiExample {curl} Example usage:
-     *     curl -i -X POST -H "Authorization:Bearer <token>,Content-Type:application/json" http://localhost:80/api/v0_01/tasks -d '{"name":"Task name", "description":"Task description", "language_id":"1"}'
-     * @apiSuccessExample {json} Success-Response:
-     *     {"name":"Task name", "description":"Task description", "language_id":"1"}
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks
+
      */
     public function store(Request $request) {
 //        /*$user = User::findOrNew(1);
