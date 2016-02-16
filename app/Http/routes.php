@@ -15,6 +15,10 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
+$app->get('/apidoc', function () use ($app) {
+    return view('docs/index');
+});
+
 $app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('/', 'AuthController@authorizeUser');
 });
