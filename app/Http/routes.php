@@ -21,7 +21,7 @@ $app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], fu
 
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
     $app->get('/', 'UserController@index');
-    $app->get('{id}', 'UserController@show');
+    $app->get('{id}/{option}', 'UserController@show');
     $app->get('{id}/tasks', 'TaskController@allForUser');
 
     $app->put('{id}', 'UserController@update');
