@@ -27,22 +27,19 @@ class UserController extends Model {
     /*
      * Show the user from an id
      */
-    public function show(Request $request, $options) {
-        $user = User::find($id);
+    public function show(Request $request, $id) {
+        $user = User::findOrFail($id);
 
-        if ($user){
-            switch ($options) {
-                case 'user':
-                    $this->userInfo($user);
+        if ($user) {
+            if ($request->has('tasks')) {
+                $user->tasks;
             }
         } else {
             return response()->json('User not found', 404);
         }
-    }
 
-    protected function UserInfo($user) {
-        $user->tasks;
         return response()->json($user);
+
     }
 
     /*
