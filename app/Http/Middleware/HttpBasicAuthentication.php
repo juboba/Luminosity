@@ -51,6 +51,7 @@ class HttpBasicAuthentication
             $headers = array('WWW-Authenticate' => 'Basic');
             return response('Unauthorized', 401, $headers);
         }*/
+
         if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
           return response('Unauthorized: You must send authorization', 401);
         }

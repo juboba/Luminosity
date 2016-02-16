@@ -80,7 +80,6 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/restangular/dist/restangular.js"></script>
-    <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
