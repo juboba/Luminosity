@@ -52,14 +52,8 @@ class HttpBasicAuthentication
             return response('Unauthorized', 401, $headers);
         }*/
 
-        if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
-          return response('Unauthorized: You must send authorization', 401);
-        }
-
-        $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
-
-        if(!$this->authController->checkAuthorization($authorization_hash)) {
-          return response('Unauthorized: Wrong token.', 401);
+        if(!$this->authController->checkAuthorization($request)) {
+          return response('Unauthorized.', 401);
         };
 
         return $next($request);
