@@ -35,7 +35,16 @@ class UserController extends Controller
         //$task = $this->search(Task::class, $task_id);
         return $this->buildResponse($user, 200);
     }
-
+    /**
+     * @api {get} /user/:id Request User information
+     * @apiName GetUser
+     * @apiGroup User
+     *
+     * @apiParam {Number} id Users unique ID.
+     *
+     * @apiSuccess {String} firstname Firstname of the User.
+     * @apiSuccess {String} lastname  Lastname of the User.
+     */
     public function getTasks($user_id)
     {
         $tasks = User::find($user_id)->tasks;

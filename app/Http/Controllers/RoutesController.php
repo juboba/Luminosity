@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use League\OAuth2\Server\AuthorizationServer;
 
 class RoutesController extends Controller
 {
@@ -15,5 +16,7 @@ class RoutesController extends Controller
                 echo $route['method']. '  ->  ' . $route['uri']. '<br>';
             }
         }
+
     }
 }
+

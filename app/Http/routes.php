@@ -21,7 +21,12 @@ $app->get('/task/{id}/user', 'TaskController@getUser');
 $app->post('/task/add', 'TaskController@store');
 $app->delete('/task/{id}', 'TaskController@delete');
 
-$app->get('/user/{id}', 'UserController@get');
+//$app->get('/user/{id}', 'UserController@get');
+$app->get('/user/{id}', [
+    'middleware' => ['role'],
+    'uses' => 'UserController@get',
+    'roles' => ['administrator', 'manager']
+]);
 $app->get('/user/{id}/tasks', 'UserController@getTasks');
 $app->post('/user/add', 'UserController@store');
 $app->put('/user/{id}', 'UserController@update');

@@ -22,10 +22,10 @@ try {
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
-
+//class_alias(Illuminate\Support\Facades\Config::class, 'Config');
 $app->withFacades();
 
-//$app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,13 @@ $app->withFacades();
 | your own bindings here if you like or you can make another file.
 |
 */
+$app->routeMiddleware([
+    'oauth'         => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+    'auth' 			=> 'App\Http\Middleware\Authenticate',
+    'auth.basic' 	=> 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+    'guest' 		=> 'App\Http\Middleware\RedirectIfAuthenticated',
+    'role' 		    => 'App\Http\Middleware\CheckRole',
+]);
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
@@ -63,20 +70,12 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
- $app->routeMiddleware([
-     'auth' => App\Http\Middleware\Authenticate::class,
- ]);
+
 
 $app->middleware([
     \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class
 ]);
-$app->routeMiddleware([
-    'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
-    'csrf' => \Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
-    'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
-    'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
-    'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
-]);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -90,7 +89,7 @@ $app->routeMiddleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-$app->register(App\Providers\AuthServiceProvider::class);
+//$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class);
 $app->register(\LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class);

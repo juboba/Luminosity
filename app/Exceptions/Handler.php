@@ -47,20 +47,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof NotFoundResourceException)
-        {
-            return response()->json(['message' => 'Resource not found', 'code' => 404], 404);
-        }
-
-        if(env('APP_DEBUG'))
-        {
+        if(env('APP_DEBUG')) {
             return parent::render($request, $e);
         }
 
-        if($e instanceof NotFoundHttpException)
-        {
+        if($e instanceof NotFoundResourceException) {
+            return response()->json(['message' => 'Resource not found', 'code' => 404], 404);
+        }
+
+        if($e instanceof NotFoundHttpException) {
             return response()->json(['message' => 'Invalid Request', 'code' => 400], 400);
         }
+
         return response()->json(['message' => 'ERROR. Try later', 'code' => 500], 500);
     }
 
