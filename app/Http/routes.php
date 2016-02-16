@@ -38,7 +38,7 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
 
 
 $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
-
+    $app->options('/', 'TaskController@options');
     $app->get('/', 'TaskController@index');
     $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
     $app->get('{id}', 'TaskController@show');

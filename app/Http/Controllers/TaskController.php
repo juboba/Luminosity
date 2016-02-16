@@ -30,6 +30,23 @@ class TaskController extends Controller {
     }
 
     /**
+     * Return all tasks.
+     *
+     * @apiGroup Task
+     * @apiName GetTasks
+     * @api {options} /tasks Get allowed methods.
+     * @apiHeader {String} authorization Authorization value.
+     * @apiExample {curl} Example usage:
+     *     curl -i -X OPTIONS -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/tasks
+     *
+     */
+    public function options() {
+        $methods = array('options', 'get', 'post');
+
+        return response()->json($methods);
+    }
+
+    /**
      * Return the specific task.
      *
      * @apiGroup Task
