@@ -40,11 +40,11 @@ class User extends Model implements
     }
 
     public function country() {
-        return $this->hasOne(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
     public function language() {
-        return $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
 }

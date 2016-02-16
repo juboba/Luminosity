@@ -27,10 +27,15 @@ class UserController extends Model {
     /*
      * Show the user from an id
      */
-    public function show($id) {
+    public function show(Request $request, $id) {
+
+
         $user = User::find($id);
 
         if ($user){
+            if ($request->has('tasks')){
+                $user->tasks;
+            }
             return response()->json($user);
         }
         else {
@@ -119,4 +124,5 @@ class UserController extends Model {
         }
 
     }
+
 }
