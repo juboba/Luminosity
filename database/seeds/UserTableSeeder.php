@@ -21,6 +21,8 @@ class UserTableSeeder extends Seeder
         User::create([
             'name' => 'John',
             'surname' => 'Doe',
+            'username' => 'Doe',
+            'password' => base64_encode('123'),
             'email' => 'doe.john@nomail.com',
             'direction' => 'going up',
             'enabled' => true,

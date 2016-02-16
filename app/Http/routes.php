@@ -15,12 +15,19 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
+$app->group(['prefix' => '/', 'namespace' => 'App\Http\Controllers' ], function() use ($app) {
+    $app->get('/', function() use ($app) {
+        return view('index');
+    });
+});
+
 $app->get('/apidoc', function () use ($app) {
     return view('docs/index');
 });
 
-$app->group(['prefix' => 'api/login', 'namespace' => 'App\Http\Controllers'], function ($app) {
-    $app->get('/', 'AuthController@authorizeUser');
+$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function ($app) {
+    $app->get('/login', 'AuthController@authorizeUser');
+    $app->post('/register', 'UserController@store');
 });
 
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
@@ -33,7 +40,7 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
 
     $app->post('{id}/enable', 'UserController@enable');
     $app->post('{id}/disable', 'UserController@disable');
-    $app->post('register', 'UserController@store');
+    $app->post('register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
 });
 
 

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskValidate {
     public function handle(Request $request, Closure $next){
+
         $validate = Validator::make($request->all(), [
             'name' => 'required|max:10',
             'description' => 'required|max:300',

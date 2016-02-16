@@ -64,9 +64,8 @@ class TaskController extends Controller {
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      */
-    public function show($id) {
+    public function task($id) {
         $task = Task::findOrNew($id);
-
         return response()->json($task);
     }
 
@@ -108,7 +107,7 @@ class TaskController extends Controller {
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
      */
     public function store(Request $request) {
-//        /*$user = User::findOrNew(1);
+//        $user = User::findOrNew(1);
 //
 //        /*$request->user()->tasks()->create([
 //            'name' => $request->name,
@@ -121,8 +120,10 @@ class TaskController extends Controller {
 //        ]);
 //
 //        return response()->json($created);
+
         $job = (new CreateTaskJob($request->all()))->onQueue('tasks');
         $this->dispatch($job);
+
 
         return response()->json(array('success' => true));
     }
@@ -158,7 +159,6 @@ class TaskController extends Controller {
         $task->save();
 
         return response()->json($task);
-
     }*/
 
     /**

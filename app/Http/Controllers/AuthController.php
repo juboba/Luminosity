@@ -6,22 +6,30 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use App\User;
+
 class AuthController extends Controller {
 
-  public function __construct()
-  {
-  }
+    public function __construct() {
 
-    public function checkAuthorization(array $authorization_hash) {
+    }
+
+    public function checkAuthorization(Request $request) {
+
+      if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
+        return false;
+      }
+
+      $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
+
+      if($authorization_hash[0] != 'Bearer') {
+        return false;
+      }
 
       //Check if exist token
       $token = $authorization_hash[1];
 
-      if(!$this->existToken($token)) {
-          return false;
-      }
-
-      return true;
+      return $this->existToken($token);
     }
 
     public function authorizeUser (Request $request) {
@@ -32,6 +40,10 @@ class AuthController extends Controller {
 
       $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
 
+      if($authorization_hash[0] != 'Basic') {
+        return response('Unauthorized: You must send authorization correctly', 401);
+      }
+
       $authorization = base64_decode($authorization_hash[1]);
       $authorization = explode(":", $authorization);
 
@@ -41,35 +53,51 @@ class AuthController extends Controller {
       if ($user == null || $psswd == null) {
         return response('Unauthorized: You must send authorization', 401);
       }
-        $passphrase = base64_encode($user.':'.$psswd);
 
-        //Here we must make a curl for get authorization with DOTW server.
-        //https://www.traveltech.ro/alpha/api/v1/authorize.json
-        //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
-        //\"request\": {
-        //\"type\": 2
-                //}
-        //}"
-        //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
+      $db_user = User::where('username','=',$user)->where('password','=',base64_encode($psswd))->first();
 
-         $token = hash('sha256', $passphrase);
-         $expiresAt = Carbon::now()->addMinutes(20);
+      if(!isset($db_user)) {
+        return response('Unauthorized: User not exist');
+      } else {
+        if ($db_user->enabled != true) {
+          return response('Unauthorized: User inactive');
+        }
+      }
 
-         if(Cache::add($token, $token, $expiresAt)) {
-           return response()->json(['api_token' => $token]);
-         } else {
-           return response('Unauthorized: User or password are wrong', 401);;
-         }
+      $passphrase = base64_encode($user.':'.$psswd);
+
+      //Here we must make a curl for get authorization with DOTW server.
+      //https://www.traveltech.ro/alpha/api/v1/authorize.json
+      //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
+      //\"request\": {
+      //\"type\": 2
+              //}
+      //}"
+      //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
+
+       $token = hash('sha256', $passphrase);
+       $expiresAt = Carbon::now()->addMinutes(50);
+
+       Cache::put($token, $user, $expiresAt);
+
+       if(Cache::has($token)) {
+         return response()->json(['api_token' => $token]);
+       } else {
+         return response('Unauthorized: User or password are wrong', 401);;
+       }
 
     }
 
     public function existToken ($token) {
       //Search into Caché if the user:psswd has token associated.
-      if($token == null || Cache::get($token) == null ) {
+      $user = Cache::get($token);
+      if($token == null || $user == null ) {
         return false;
+      } else {
+        if(!User::where('username','=',$user)->get()) {
+          return false;
+        }
       }
-
       return true;
     }
-
 }
