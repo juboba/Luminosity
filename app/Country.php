@@ -15,4 +15,9 @@ class Country extends Model {
     protected $fillable = [
         'name', 'profix',
     ];
+
+    public function user() {
+        $this->hasMany('User');
+    }
+
 }
