@@ -14,6 +14,18 @@ class AuthController extends Controller {
 
     }
 
+    /**
+     * Return true if request is authorized, otherwise false.
+     *
+     * @apiGroup Auth
+     * @apiName CheckAuthorization
+     * @api {get} /checkAuthorization Check if request is authorizabled.
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/checkAuthorization
+     * @apiVersion 0.1.0
+     */
     public function checkAuthorization(Request $request) {
 
       if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
@@ -32,6 +44,18 @@ class AuthController extends Controller {
       return $this->existToken($token);
     }
 
+    /**
+     * Return api_token if user is authorized, otherwise return a error response.
+     *
+     * @apiGroup Auth
+     * @apiName AuthorizeUser
+     * @api {get} /authorizeUser Authorize user with token.
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/authorizeUser
+     * @apiVersion 0.1.0
+     */
     public function authorizeUser (Request $request) {
 
       if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
@@ -88,7 +112,17 @@ class AuthController extends Controller {
 
     }
 
-    public function existToken ($token) {
+    /**
+     * Return true if token is in cache, otherwise false.
+     *
+     * @apiGroup Auth
+     * @apiName ExistToken
+     * @api {get} /existToken Check if token exist in cache.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/existToken
+     * @apiVersion 0.1.0
+     */
+    private function existToken ($token) {
       //Search into Caché if the user:psswd has token associated.
       $user = Cache::get($token);
       if($token == null || $user == null ) {

@@ -1,5 +1,76 @@
 define({ "api": [
   {
+    "group": "Auth",
+    "name": "AuthorizeUser",
+    "type": "get",
+    "url": "/authorizeUser",
+    "title": "Authorize user with token.",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/api/v0_01/authorizeUser"
+      }
+    ],
+    "version": "0.1.0",
+    "filename": "app/Http/Controllers/AuthController.php",
+    "groupTitle": "Auth"
+  },
+  {
+    "group": "Auth",
+    "name": "CheckAuthorization",
+    "type": "get",
+    "url": "/checkAuthorization",
+    "title": "Check if request is authorizabled.",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/api/v0_01/checkAuthorization"
+      }
+    ],
+    "version": "0.1.0",
+    "filename": "app/Http/Controllers/AuthController.php",
+    "groupTitle": "Auth"
+  },
+  {
+    "group": "Auth",
+    "name": "ExistToken",
+    "type": "get",
+    "url": "/existToken",
+    "title": "Check if token exist in cache.",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/api/v0_01/existToken"
+      }
+    ],
+    "version": "0.1.0",
+    "filename": "app/Http/Controllers/AuthController.php",
+    "groupTitle": "Auth"
+  },
+  {
     "group": "Task",
     "name": "DeleteTask",
     "type": "delete",
