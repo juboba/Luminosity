@@ -41,7 +41,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks/1"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   },
@@ -74,7 +74,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks/1"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   },
@@ -107,7 +107,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   },
@@ -194,7 +194,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   },
@@ -281,7 +281,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks/1"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   },
@@ -314,7 +314,7 @@ define({ "api": [
         "url": "http://localhost:80/api/v0_01/tasks"
       }
     ],
-    "version": "0.0.0",
+    "version": "0.1.0",
     "filename": "app/Http/Controllers/TaskController.php",
     "groupTitle": "Task"
   }
