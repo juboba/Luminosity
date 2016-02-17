@@ -8,7 +8,7 @@
  * Controller of the publicApp
  */
 angular.module('publicApp')
-    .controller('TaskCtrl', function ($scope, Task) {
+    .controller('TaskCtrl', function ($scope, Task, $location) {
       Task.all().then(function(tasks){
           $scope.tasks = [];
 
@@ -21,5 +21,7 @@ angular.module('publicApp')
 
           });
           
+      }, function(error){
+          $location.url('/login');
       });
   });

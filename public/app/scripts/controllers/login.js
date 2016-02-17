@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name publicApp.controller:MainCtrl
+ * @name publicApp.controller:LoginCtrl
  * @description
- * # MainCtrl
+ * # LoginCtrl
  * Controller of the publicApp
  */
 angular.module('publicApp')
-    .controller('MainCtrl', function ($scope, $http) {
+    .controller('LoginCtrl', function ($scope, $http, $location) {
         var base64string;
 
         $scope.makeRequest = function(){
@@ -20,6 +20,7 @@ angular.module('publicApp')
                 method: 'GET'
             }).success(function(response){
                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.api_token;
+                $location.url('/users');
             });
         }
   });

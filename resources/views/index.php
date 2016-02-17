@@ -85,7 +85,7 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="app/scripts/app.js"></script>
-        <script src="app/scripts/controllers/main.js"></script>
+        <script src="app/scripts/controllers/login.js"></script>
         <script src="app/scripts/controllers/logout.js"></script>
         <script src="app/scripts/controllers/task.js"></script>
         <script src="app/scripts/controllers/user.js"></script>
