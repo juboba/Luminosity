@@ -63,7 +63,6 @@ class AuthController extends Controller {
           return response('Unauthorized: User inactive');
         }
       }
-
       $passphrase = base64_encode($user.':'.$psswd);
 
       //Here we must make a curl for get authorization with DOTW server.
@@ -78,9 +77,10 @@ class AuthController extends Controller {
        $token = hash('sha256', $passphrase);
        $expiresAt = Carbon::now()->addMinutes(50);
 
-       Cache::put($token, $user, $expiresAt);
+        Cache::put($token, $user, $expiresAt);
 
        if(Cache::has($token)) {
+         Cache::put('role'.$token, $db_user->role, $expiresAt); // store role in cache
          return response()->json(['api_token' => $token]);
        } else {
          return response('Unauthorized: User or password are wrong', 401);;

@@ -112,7 +112,6 @@ class UserController extends Model {
      */
     public function enable($id) {
         $user = User::find($id);
-        //dd($user);
 
         if ($user!=NULL) {
 
@@ -126,5 +125,6 @@ class UserController extends Model {
         }
 
     }
+
 
 }

@@ -10,6 +10,8 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+//$app->get('/roles/{role}/user/{id}', 'RolesController@setUserRol');
+//$app->get('/roles', 'RolesController@show');
 
 $app->get('/', function () use ($app) {
         return view('index');
@@ -30,18 +32,25 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('/register', 'UserController@store');
 });
 
-$app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
-    $app->get('/', 'UserController@index');
-    $app->get('{id}', 'UserController@show');
-    $app->get('{id}/tasks', 'TaskController@allForUser');
+$app->group(['prefix' => 'api/v0_01/users',
+             'namespace' => 'App\Http\Controllers',
+             'middleware' => 'auth',
+             ],
+    function ($app) {
+        $app->get('/', ['middleware' => 'role', 'roles' => ['admin', 'manager'], 'uses' => 'UserController@index']);
+        $app->get('{id}', 'UserController@show');
+        $app->get('{id}/tasks', 'TaskController@allForUser');
 
-    $app->put('{id}', 'UserController@update');
-    $app->delete('{id}', 'UserController@destroy');
+        $app->get('/roles/{role}/user/{id}', ['middleware' => 'role', 'roles' => ['admin'],'uses' => 'RolesController@setUserRol']);
+        $app->get('/roles', 'RolesController@show');
 
-    $app->post('{id}/enable', 'UserController@enable');
-    $app->post('{id}/disable', 'UserController@disable');
-    $app->post('register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
-});
+        $app->put('{id}', 'UserController@update');
+        $app->delete('{id}', 'UserController@destroy');
+
+        $app->post('{id}/enable', 'UserController@enable');
+        $app->post('{id}/disable', 'UserController@disable');
+        $app->post('register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
+    });
 
 
 $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {

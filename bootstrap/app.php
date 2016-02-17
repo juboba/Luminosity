@@ -70,6 +70,7 @@ $app->routeMiddleware(
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\HttpBasicAuthentication::class,
+     'role' => App\Http\Middleware\RolesControlMiddleware::class,
      //'auth.2' => App\Http\Middleware\Authenticate::class,
  ]);
 
