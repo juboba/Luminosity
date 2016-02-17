@@ -16,6 +16,10 @@ class Country extends Model {
         'name', 'profix',
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at',
+    ];
+
     public function user() {
         $this->hasMany('User');
     }

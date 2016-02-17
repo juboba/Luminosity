@@ -16,6 +16,10 @@ class Task extends Model {
         'name', 'description', 'language_id'
     ];
 
+    protected $hidden = [
+        'created_at',
+    ];
+
     /*
      * return the user that belogs the task
      */

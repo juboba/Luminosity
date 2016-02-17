@@ -27,7 +27,7 @@ $app->get('/apidoc', function () use ($app) {
 
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function ($app) {
     $app->get('/login', 'AuthController@authorizeUser');
-    $app->post('/register', 'UserController@store');
+    $app->post('/register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
 });
 
 $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
@@ -40,7 +40,6 @@ $app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers
 
     $app->post('{id}/enable', 'UserController@enable');
     $app->post('{id}/disable', 'UserController@disable');
-    $app->post('register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
 });
 
 
