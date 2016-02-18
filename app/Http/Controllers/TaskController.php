@@ -31,6 +31,10 @@ class TaskController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
      * @apiVersion 0.1.0
      */
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index()
     {
         $tasks = User::findOrNew($this->user)->tasks;
@@ -51,6 +55,10 @@ class TaskController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
      * @apiVersion 0.1.0
+     */
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function options()
     {
@@ -73,14 +81,16 @@ class TaskController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
      *
-     * @param $uid
-     *
-     * @return JsonResponse Task
      */
 
-    public function task($id)
+    /**
+     * @param $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function task($uid)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($uid);
 
         return response()->json($task);
     }
@@ -99,7 +109,9 @@ class TaskController extends Controller
      *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/user/1/tasks
      * @apiVersion 0.1.0
      * @apiIgnore Route not yet implemented.
-     *
+     */
+
+    /**
      * @param $uid
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -130,7 +142,9 @@ class TaskController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
      * @apiVersion 0.1.0
-     *
+     */
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -177,10 +191,12 @@ class TaskController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
      *
+     */
+
+    /**
      * @param array $attributes
      * @param array $options
-     *
-     * @return
+     * @return mixed
      */
     public function update(array $attributes = [], array $options = [])
     {
@@ -212,14 +228,15 @@ class TaskController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
-     *
+     */
+
+    /**
      * @param $uid
-     *
-     * @return JsonResponse Deleted user
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroyTask($uid)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($uid);
         $deleted = $task->delete();
 
         return response()->json(array('success' => $deleted));

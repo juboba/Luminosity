@@ -14,7 +14,8 @@ class AuthController extends Controller
     }
 
     /**
-     * Return true if request is authorized, otherwise false.
+     * @param Request $request
+     * @return bool
      */
     public function checkAuthorization(Request $request)
     {
@@ -82,7 +83,7 @@ class AuthController extends Controller
 
         $token = $db_user->getToken();
 
-        if($token) {
+        if ($token) {
             return response()->json(['api_token' => $token]);
         }
 
