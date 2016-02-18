@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+//use Carbon\Carbon;
 use App\User;
 
 class AuthController extends Controller
@@ -46,6 +46,9 @@ class AuthController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/login
      * @apiVersion 0.1.0
+     */
+
+    /**
      * @param Request $request
      * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -90,8 +93,12 @@ class AuthController extends Controller
         return response('Unauthorized: User or password are wrong', 401);
     }
 
+
+
     /**
      * Return true if token is in cache, otherwise false.
+     * @param $token
+     * @return bool
      */
     private function existToken($token)
     {

@@ -9,7 +9,6 @@
 
 namespace App\Jobs;
 
-use Illuminate\Http\Request;
 use App\Country;
 use App\Language;
 use App\User;
