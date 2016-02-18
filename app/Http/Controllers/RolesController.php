@@ -28,12 +28,12 @@ class RolesController extends Controller {
      * @apiIgnore Route not yet implemented.
      */
     public function getRole($idRole) {
-        $response = Role::find($idRole);
+        $role = Role::find($idRole);
 
-        if (!$response) {
+        if (!$role) {
             return $this->defaultRole; // by default role
         }
-        return $response->name;
+        return $role->name;
     }
 
 
