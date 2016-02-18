@@ -14,7 +14,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Return true if request is authorized, otherwise false.0
+     * Return true if request is authorized, otherwise false.
      */
     public function checkAuthorization(Request $request)
     {
@@ -45,6 +45,8 @@ class AuthController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/login
      * @apiVersion 0.1.0
+     * @param Request $request
+     * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function authorizeUser(Request $request)
     {

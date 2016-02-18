@@ -9,6 +9,7 @@ namespace app\Http\Controllers;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Model
@@ -70,13 +71,14 @@ class UserController extends Model
      * @apiVersion 0.1.0
      *
      * @param Request $request
-     * @param $id
+     * @param $uid
+     * @return JsonResponse user
+     * @internal param $id
      *
-     * @return
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $uid)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($uid);
 
         if ($user) {
             if ($request->has('tasks')) {
@@ -151,7 +153,7 @@ class UserController extends Model
      *
      * @param Request $request
      *
-     * @return
+     * @return JsonResponse created user
      */
     public function store(Request $request)
     {
@@ -200,13 +202,13 @@ class UserController extends Model
      *
      * @apiVersion 0.1.0
      *
-     * @param $id
+     * @param $uid
      *
-     * @return
+     * @return JsonResponse
      */
-    public function disable($id)
+    public function disable($uid)
     {
-        $user = User::find($id);
+        $user = User::find($uid);
         //dd($user);
 
         if ($user != null) {
@@ -248,13 +250,13 @@ class UserController extends Model
      *
      * @apiVersion 0.1.0
      *
-     * @param $id
+     * @param $uid
      *
-     * @return
+     * @return JsonResponse
      */
-    public function enable($id)
+    public function enable($uid)
     {
-        $user = User::find($id);
+        $user = User::find($uid);
 
         if ($user != null) {
             $user->enabled = true;
