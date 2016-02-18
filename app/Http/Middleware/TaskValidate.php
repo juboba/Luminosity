@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskValidate
 {
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function handle(Request $request, Closure $next)
     {
         $validate = Validator::make($request->request->all(), [

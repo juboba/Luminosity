@@ -11,10 +11,16 @@
 |
 */
 
+/**
+ * Root route
+ */
 $app->get('/', function () use ($app) {
         return view('index');
 });
 
+/**
+ * Route group for the angular view
+ */
 $app->group(
     [
         'prefix' => '/',
@@ -27,10 +33,16 @@ $app->group(
     }
 );
 
+/**
+ * Api doc Route
+ */
 $app->get('/apidoc', function () use ($app) {
     return view('docs/index');
 });
 
+/**
+ * DMZ routes
+ */
 $app->group(
     [
         'prefix' => 'api',
@@ -45,6 +57,9 @@ $app->group(
     }
 );
 
+/**
+ * Routes related with user operation API
+ */
 $app->group(
     [
         'prefix' => 'api/v0_01/users',
@@ -56,7 +71,12 @@ $app->group(
         $app->get('{id}', 'UserController@show');
         $app->get('{id}/tasks', 'TaskController@allForUser');
 
-        $app->put('{id}', 'UserController@update');
+        //$app->put('{id}', 'UserController@update');
+        $app->put('{id}', [
+            'middleware' => 'App\Http\Middleware\UserUpdateValidate',
+            'uses' => 'UserController@update'
+        ]);
+
         $app->delete('{id}', 'UserController@destroy');
 
         $app->post('{id}/enable', 'UserController@enable');
@@ -64,6 +84,9 @@ $app->group(
     }
 );
 
+/**
+ * Routes group to tasks related operations.
+ */
 $app->group(
     [
         'prefix' => 'api/v0_01/tasks',

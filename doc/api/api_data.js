@@ -97,6 +97,19 @@ define({ "api": [
         ]
       }
     },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "Language",
+            "description": "<p>Add the language object to the response (Opcional).</p>"
+          }
+        ]
+      }
+    },
     "sampleRequest": [
       {
         "url": "http://localhost:80/api/v0_01/tasks/1"

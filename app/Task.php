@@ -31,6 +31,6 @@ class Task extends Model
      */
     public function language()
     {
-        $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 }

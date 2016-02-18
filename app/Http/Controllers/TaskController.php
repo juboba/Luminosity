@@ -76,6 +76,7 @@ class TaskController extends Controller
      * @apiPermission login
      *
      * @apiHeader {String} authorization Authorization value.
+     * @apiParam {Boolean} Language Add the language object to the response (Opcional).
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
@@ -83,13 +84,20 @@ class TaskController extends Controller
      */
 
     /**
-     * @param $uid
+     * @param Request $request
+     * @param $tid
      * @return \Symfony\Component\HttpFoundation\Response
      */
 
-    public function task($uid)
+    public function task(Request$request, $tid)
     {
-        $task = Task::findOrFail($uid);
+        $task = Task::findOrFail($tid);
+
+        if ($task) {
+            if ($request->get('language_id')) {
+                $task->language;
+            }
+        }
 
         return response()->json($task);
     }
