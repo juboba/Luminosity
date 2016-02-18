@@ -37,14 +37,6 @@ class RolesController extends Controller {
     }
 
 
-    public function setUserRol(int $idRole, int $idUser)
-    {
-        $user = User::find($idUser);
-        $user->update(['role' => $idRole]);
-
-        return response()->json(['New IdRole' => $idRole]);
-    }
-
     public function show()
     {
         $users = DB::table('users')->get();

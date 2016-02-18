@@ -16,20 +16,13 @@ class AuthController extends Controller {
 
     public function checkAuthorization(Request $request) {
 
-      if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
-        return false;
-      }
-
-      $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
-
-      if($authorization_hash[0] != 'Bearer') {
-        return false;
-      }
 
       //Check if exist token
-      $token = $authorization_hash[1];
-
-      return $this->existToken($token);
+      $token = $this->getToken($request);
+        if ($token) {
+            return $this->existToken($token);
+        }
+      return false;
     }
 
     public function authorizeUser (Request $request) {
@@ -76,11 +69,11 @@ class AuthController extends Controller {
 
        $token = hash('sha256', $passphrase);
        $expiresAt = Carbon::now()->addMinutes(50);
-
-        Cache::put($token, $user, $expiresAt);
+        $value = serialize($db_user);
+        Cache::put($token, $value, $expiresAt);
 
        if(Cache::has($token)) {
-         Cache::put('role'.$token, $db_user->role, $expiresAt); // store role in cache
+         //Cache::put('role'.$token, $db_user->role, $expiresAt); // store role in cache
          return response()->json(['api_token' => $token]);
        } else {
          return response('Unauthorized: User or password are wrong', 401);;
@@ -90,14 +83,29 @@ class AuthController extends Controller {
 
     public function existToken ($token) {
       //Search into Caché if the user:psswd has token associated.
-      $user = Cache::get($token);
+        $serializeUser = Cache::get($token);
+        $user = unserialize($serializeUser);
+
       if($token == null || $user == null ) {
         return false;
-      } else {
+      /*} else {
         if(!User::where('username','=',$user)->get()) {
           return false;
-        }
+        }*/
       }
       return true;
+    }
+    public function getToken(Request $request)
+    {
+        if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
+            return false;
+        }
+
+        $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
+
+        if($authorization_hash[0] != 'Bearer') {
+            return false;
+        }
+        return $authorization_hash[1];
     }
 }

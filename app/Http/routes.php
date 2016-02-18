@@ -10,8 +10,8 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-//$app->get('/roles/{role}/user/{id}', 'RolesController@setUserRol');
-//$app->get('/roles', 'RolesController@show');
+$app->post('/user/{id}/role/{role}', ['middleware' => 'role', 'roles' => ['admin'], 'uses' => 'UserController@setUserRol']);
+$app->get('/roles', 'RolesController@show');
 
 $app->get('/', function () use ($app) {
         return view('index');
@@ -41,8 +41,8 @@ $app->group(['prefix' => 'api/v0_01/users',
         $app->get('{id}', 'UserController@show');
         $app->get('{id}/tasks', 'TaskController@allForUser');
 
-        $app->get('/roles/{role}/user/{id}', ['middleware' => 'role', 'roles' => ['admin'],'uses' => 'RolesController@setUserRol']);
-        $app->get('/roles', 'RolesController@show');
+//        $app->get('{id}/role/{role}', ['middleware' => 'role', 'roles' => ['admin'],'uses' => 'RolesController@setUserRol']);
+//        $app->get('roles', 'RolesController@show');
 
         $app->put('{id}', 'UserController@update');
         $app->delete('{id}', 'UserController@destroy');
