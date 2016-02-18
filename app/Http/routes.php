@@ -49,6 +49,6 @@ $app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers
     $app->options('{id}', 'TaskController@options');
     $app->get('/', 'TaskController@index');
     $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
-    $app->get('{id}', 'TaskController@show');
+    $app->get('{id}', 'TaskController@task');
     $app->delete('{id}', 'TaskController@destroyTask');
 });

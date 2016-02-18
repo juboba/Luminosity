@@ -64,28 +64,13 @@ class AuthController extends Controller {
         }
       }
 
-      $passphrase = base64_encode($user.':'.$psswd);
+        $token = $db_user->getToken();
 
-      //Here we must make a curl for get authorization with DOTW server.
-      //https://www.traveltech.ro/alpha/api/v1/authorize.json
-      //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
-      //\"request\": {
-      //\"type\": 2
-              //}
-      //}"
-      //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
-
-       $token = hash('sha256', $passphrase);
-       $expiresAt = Carbon::now()->addMinutes(50);
-
-       Cache::put($token, $user, $expiresAt);
-
-       if(Cache::has($token)) {
-         return response()->json(['api_token' => $token]);
-       } else {
-         return response('Unauthorized: User or password are wrong', 401);;
-       }
-
+        if($token) {
+            return response()->json(['api_token' => $token]);
+        } else {
+            return response('Unauthorized: User or password are wrong', 401);
+        }
     }
 
     public function existToken ($token) {

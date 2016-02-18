@@ -7,6 +7,8 @@ use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class User extends Model implements
     AuthenticatableContract,
@@ -47,4 +49,29 @@ class User extends Model implements
         return $this->belongsTo(Language::class);
     }
 
+    /**
+     * Get a token for an user.
+     *
+     * @return bool|string Return token. False on error.
+     */
+    public function getToken()
+    {
+        $passphrase = base64_encode($this->username.':'.$this->userpass);
+
+        //Here we must make a curl for get authorization with DOTW server.
+        //https://www.traveltech.ro/alpha/api/v1/authorize.json
+        //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
+        //\"request\": {
+        //\"type\": 2
+        //}
+        //}"
+        //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
+
+        $token = hash('sha256', $passphrase);
+        $expiresAt = Carbon::now()->addMinutes(50);
+
+        Cache::put($token, $this->username, $expiresAt);
+
+        return (Cache::has($token)) ? $token : false;
+    }
 }
