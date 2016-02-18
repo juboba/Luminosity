@@ -7,9 +7,8 @@
  */
 namespace app\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Jobs\CreateTaskJob;
 use App\Task;
 use App\User;
 
@@ -73,13 +72,13 @@ class TaskController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
      *
-     * @param $id
+     * @param $uid
      *
-     * @return
+     * @return JsonResponse Task
      */
-    public function task($id)
+    public function task($uid)
     {
-        $task = Task::findOrNew($id);
+        $task = Task::findOrNew($uid);
 
         return response()->json($task);
     }
@@ -100,8 +99,7 @@ class TaskController extends Controller
      * @apiIgnore Route not yet implemented.
      *
      * @param $uid
-     *
-     * @return
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function allForUser($uid)
     {
@@ -132,8 +130,7 @@ class TaskController extends Controller
      * @apiVersion 0.1.0
      *
      * @param Request $request
-     *
-     * @return
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {
@@ -214,13 +211,13 @@ class TaskController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
      *
-     * @param $id
+     * @param $uid
      *
-     * @return
+     * @return JsonResponse Deleted user
      */
-    public function destroyTask($id)
+    public function destroyTask($uid)
     {
-        $task = Task::findOrNew($id);
+        $task = Task::findOrNew($uid);
         $deleted = $task->delete();
 
         return response()->json(array('success' => $deleted));

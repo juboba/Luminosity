@@ -15,7 +15,7 @@ class HttpBasicAuthentication
     /**
      * Create a new middleware instance.
      *
-     * @param \Illuminate\Contracts\Auth\Factory $auth
+     * @internal param \Illuminate\Contracts\Auth\Factory $auth
      */
     public function __construct()
     {
