@@ -14,17 +14,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Return true if request is authorized, otherwise false.
-     *
-     * @apiGroup Auth
-     * @apiName CheckAuthorization
-     *
-     * @api {get} /checkAuthorization Check if request is authorizabled.
-     *
-     * @apiHeader {String} authorization Authorization value.
-     *
-     * @apiSampleRequest http://localhost:80/api/v0_01/checkAuthorization
-     * @apiVersion 0.1.0
+     * Return true if request is authorized, otherwise false.0
      */
     public function checkAuthorization(Request $request)
     {
@@ -49,11 +39,11 @@ class AuthController extends Controller
      * @apiGroup Auth
      * @apiName AuthorizeUser
      *
-     * @api {get} /authorizeUser Authorize user with token.
+     * @api {get} /login Authorize user with token.
      *
      * @apiHeader {String} authorization Authorization value.
      *
-     * @apiSampleRequest http://localhost:80/api/v0_01/authorizeUser
+     * @apiSampleRequest http://localhost:80/api/v0_01/login
      * @apiVersion 0.1.0
      */
     public function authorizeUser(Request $request)
@@ -88,38 +78,17 @@ class AuthController extends Controller
             }
         }
 
-        $passphrase = base64_encode($user.':'.$psswd);
-        //Here we must make a curl for get authorization with DOTW server.
-        ////https://www.traveltech.ro/alpha/api/v1/authorize.json
-        ////curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
-        ////\"request\": {
-        ////\"type\": 2
-        //      //}
-        //}"
-        //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
+        $token = $db_user->getToken();
 
-        $token = hash('sha256', $passphrase);
-        $expiresAt = Carbon::now()->addMinutes(50);
-
-        Cache::put($token, $user, $expiresAt);
-
-        if (Cache::has($token)) {
+        if($token) {
             return response()->json(['api_token' => $token]);
-        } else {
-            return response('Unauthorized: User or password are wrong', 401);
         }
+
+        return response('Unauthorized: User or password are wrong', 401);
     }
 
     /**
      * Return true if token is in cache, otherwise false.
-     *
-     * @apiGroup Auth
-     * @apiName ExistToken
-     *
-     * @api {get} /existToken Check if token exist in cache.
-     *
-     * @apiSampleRequest http://localhost:80/api/v0_01/existToken
-     * @apiVersion 0.1.0
      */
     private function existToken($token)
     {

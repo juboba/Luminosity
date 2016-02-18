@@ -77,9 +77,10 @@ class TaskController extends Controller
      *
      * @return
      */
+
     public function task($id)
     {
-        $task = Task::findOrNew($id);
+        $task = Task::findOrFail($id);
 
         return response()->json($task);
     }
@@ -220,7 +221,7 @@ class TaskController extends Controller
      */
     public function destroyTask($id)
     {
-        $task = Task::findOrNew($id);
+        $task = Task::findOrFail($id);
         $deleted = $task->delete();
 
         return response()->json(array('success' => $deleted));
