@@ -19,9 +19,9 @@ angular
 
         $routeProvider
 
-        .when('/', {
-            templateUrl: 'app/views/main.html',
-            controller: 'MainCtrl',
+        .when('/login', {
+            templateUrl: 'app/views/login.html',
+            controller: 'LoginCtrl',
         })
         .when('/users', {
             templateUrl: 'app/views/users.html',
@@ -40,7 +40,7 @@ angular
             controller: 'LogoutCtrl',
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/login'
         });
     })
     .config(function(RestangularProvider){

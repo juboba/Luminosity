@@ -13,23 +13,23 @@
 $app->post('/user/{id}/role/{role}', ['middleware' => 'role', 'roles' => ['admin'], 'uses' => 'UserController@setUserRol']);
 $app->get('/roles', ['middleware' => 'auth', 'uses' => 'RolesController@show']);
 
-
 $app->get('/', function () use ($app) {
-    return view('index');
+        return view('index');
 });
+
 $app->group(
     [
         'prefix' => '/',
         'namespace' => 'App\Http\Controllers'
     ],
     function () use ($app) {
-        $app->get('/', function () use ($app) {
-            return view('index');
-        });
+            $app->get('/', function () use ($app) {
+                    return view('index');
+            });
     }
 );
 $app->get('/apidoc', function () use ($app) {
-    return view('docs/index');
+        return view('docs/index');
 });
 $app->group(
     [
@@ -37,11 +37,11 @@ $app->group(
         'namespace' => 'App\Http\Controllers'
     ],
     function () use ($app) {
-        $app->get('/login', 'AuthController@authorizeUser');
-        $app->post('/register', [
-            'middleware' => 'App\Http\Middleware\UserCommonValidate',
-            'uses' => 'UserController@store'
-        ]);
+            $app->get('/login', 'AuthController@authorizeUser');
+            $app->post('/register', [
+                'middleware' => 'App\Http\Middleware\UserCommonValidate',
+                'uses' => 'UserController@store'
+            ]);
     }
 );
 $app->group(
@@ -51,13 +51,13 @@ $app->group(
         'middleware' => 'auth'
     ],
     function ($app) {
-        $app->get('/', 'UserController@index');
-        $app->get('{id}', 'UserController@show');
-        $app->get('{id}/tasks', 'TaskController@allForUser');
-        $app->put('{id}', 'UserController@update');
-        $app->delete('{id}', 'UserController@destroy');
-        $app->post('{id}/enable', 'UserController@enable');
-        $app->post('{id}/disable', 'UserController@disable');
+            $app->get('/', 'UserController@index');
+            $app->get('{id}', 'UserController@show');
+            $app->get('{id}/tasks', 'TaskController@allForUser');
+            $app->put('{id}', 'UserController@update');
+            $app->delete('{id}', 'UserController@destroy');
+            $app->post('{id}/enable', 'UserController@enable');
+            $app->post('{id}/disable', 'UserController@disable');
     }
 );
 $app->group(
@@ -67,14 +67,14 @@ $app->group(
         'middleware' => 'auth'
     ],
     function () use ($app) {
-        $app->options('/', 'TaskController@options');
-        $app->options('{id}', 'TaskController@options');
-        $app->get('/', 'TaskController@index');
-        $app->post('/', [
-            'middleware' => 'App\Http\Middleware\TaskValidate',
-            'uses' => 'TaskController@store'
-        ]);
-        $app->get('{id}', 'TaskController@task');
-        $app->delete('{id}', 'TaskController@destroyTask');
+            $app->options('/', 'TaskController@options');
+            $app->options('{id}', 'TaskController@options');
+            $app->get('/', 'TaskController@index');
+            $app->post('/', [
+                'middleware' => 'App\Http\Middleware\TaskValidate',
+                'uses' => 'TaskController@store'
+            ]);
+            $app->get('{id}', 'TaskController@task');
+            $app->delete('{id}', 'TaskController@destroyTask');
     }
 );

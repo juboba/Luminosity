@@ -3,17 +3,17 @@
  * Created by PhpStorm.
  * User: yhensel
  * Date: 11/02/16
- * Time: 10:35
+ * Time: 10:35.
  */
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Jobs\CreateTaskJob;
 use App\Task;
 use App\User;
+use App\Jobs\CreateTaskJob;
 
-class TaskController extends Controller {
+class TaskController extends Controller
+{
     protected $user = 1;
 
     /**
@@ -21,15 +21,23 @@ class TaskController extends Controller {
      *
      * @apiGroup Task
      * @apiName GetTasks
+     *
      * @api {get} /tasks Get all tasks.
+     * @apiPermission login
+     *
      * @apiHeader {String} authorization Authorization value.
-     * @apiExample {curl} Example usage:
-     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/tasks
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
+     * @apiVersion 0.1.0
      */
-    public function index() {
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function index()
+    {
         $tasks = User::findOrNew($this->user)->tasks;
+
         return response()->json($tasks);
     }
 
@@ -37,14 +45,22 @@ class TaskController extends Controller {
      * Return all tasks.
      *
      * @apiGroup Task
-     * @apiName GetTasks
-     * @api {options} /tasks Get allowed methods.
-     * @apiHeader {String} authorization Authorization value.
-     * @apiExample {curl} Example usage:
-     *     curl -i -X OPTIONS -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/tasks
+     * @apiName TasksOptions
      *
+     * @api {options} /tasks Get allowed methods.
+     * @apiPermission login
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks
+     * @apiVersion 0.1.0
      */
-    public function options() {
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function options()
+    {
         $methods = array('options', 'get', 'post');
 
         return response()->json($methods);
@@ -55,13 +71,26 @@ class TaskController extends Controller {
      *
      * @apiGroup Task
      * @apiName GetTask
+     *
      * @api {get} /tasks/:id Get a task.
+     * @apiPermission login
+     *
      * @apiHeader {String} authorization Authorization value.
-     * @apiExample {curl} Example usage:
-     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/tasks/1
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
+     * @apiVersion 0.1.0
+     *
      */
-    public function task($id) {
-        $task = Task::findOrNew($id);
+
+    /**
+     * @param $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function task($uid)
+    {
+        $task = Task::findOrFail($uid);
+
         return response()->json($task);
     }
 
@@ -70,14 +99,25 @@ class TaskController extends Controller {
      *
      * @apiGroup Task
      * @apiName GetUserTasks
+     *
      * @api {get} /user/:id/tasks Get all tasks assigned to an user.
+     * @apiPermission login
+     *
      * @apiHeader {String} authorization Authorization value.
      * @apiExample {curl} Example usage:
      *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/user/1/tasks
+     * @apiVersion 0.1.0
      * @apiIgnore Route not yet implemented.
      */
-    public function allForUser($uid) {
+
+    /**
+     * @param $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function allForUser($uid)
+    {
         $response = User::find($uid)->tasks()->get();
+
         return response()->json($response, 200);
     }
 
@@ -86,6 +126,7 @@ class TaskController extends Controller {
      *
      * @apiGroup Task
      * @apiName PostTask
+     *
      * @api {post} /tasks Create a task.
      * @apiPermission login
      *
@@ -99,9 +140,16 @@ class TaskController extends Controller {
      * @apiSuccess {Number} language_id Language ID.
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks
+     * @apiVersion 0.1.0
      */
-    public function store(Request $request) {
-//        $user = User::findOrNew(1);
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function store(Request $request)
+    {
+        //        $user = User::findOrNew(1);
 //
 //        /*$request->user()->tasks()->create([
 //            'name' => $request->name,
@@ -118,11 +166,42 @@ class TaskController extends Controller {
         $job = (new CreateTaskJob($request->all()))->onQueue('tasks');
         $this->dispatch($job);
 
-
         return response()->json(array('success' => true));
     }
 
-    public function updateTask(Request $request, $id) {
+    /**
+     * Create a task.
+     *
+     * @apiGroup Task
+     * @apiName PutTask
+     *
+     * @api {put} /tasks/:id Update a task.
+     * @apiPermission login
+     *
+     * @apiHeader {String} authorization Authorization value.
+     * @apiParam {String} name Mandatory task name.
+     * @apiParam {String} description Mandatory task description.
+     * @apiParam {Number} language_id Mandatory language ID.
+     *
+     * @apiSuccess {String} name Task name.
+     * @apiSuccess {String} description Task description.
+     * @apiSuccess {Number} language_id Language ID.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
+     * @apiVersion 0.1.0
+     *
+     */
+
+    /**
+     * @param array $attributes
+     * @param array $options
+     * @return mixed
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+        return parent::update($attributes, $options); // TODO: Change the autogenerated stub
+    }
+    /*public function updateTask(Request $request, $id) {
         $task = Task::findOrNew($id);
 
         $task->name = $request->input('name');
@@ -131,16 +210,34 @@ class TaskController extends Controller {
         $task->save();
 
         return response()->json($task);
+    }*/
 
-    }
+    /**
+     * Return all tasks.
+     *
+     * @apiGroup Task
+     * @apiName DeleteTask
+     *
+     * @api {delete} /tasks/:id Delete a task.
+     * @apiPermission login
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiSuccess {Boolean} success Whether the task was deleted or not.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
+     * @apiVersion 0.1.0
+     */
 
-    public function destroyTask($id) {
-        $task = Task::findOrNew($id);
-
+    /**
+     * @param $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function destroyTask($uid)
+    {
+        $task = Task::findOrFail($uid);
         $deleted = $task->delete();
 
-        return response()->json($deleted);
-
+        return response()->json(array('success' => $deleted));
     }
-
 }

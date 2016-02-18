@@ -22,6 +22,7 @@ class User extends Model implements
     protected $fillable = [
         'email', 'name', 'surname', 'password', 'username', 'birthday', 'direction',
         'enabled', 'language_id', 'country_id', 'role_id',
+
     ];
     /**
      * The attributes excluded from the model's JSON form.
@@ -38,18 +39,22 @@ class User extends Model implements
     {
         return $this->hasMany(Task::class);
     }
+
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
+
     public function language()
     {
         return $this->belongsTo(Language::class);
     }
+
     public function roles()
     {
         return $this->hasOne(Role::class, 'id');
     }
+
     /**
      * Get a token for an user.
      *
@@ -69,7 +74,10 @@ class User extends Model implements
         $token = hash('sha256', $passphrase);
         $expiresAt = Carbon::now()->addMinutes(50);
         $value = serialize($this);
+
         Cache::put($token, $value, $expiresAt);
+
         return (Cache::has($token)) ? $token : false;
     }
 }
+

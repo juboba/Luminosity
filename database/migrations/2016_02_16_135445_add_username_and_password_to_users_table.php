@@ -7,8 +7,6 @@ class AddUsernameAndPasswordToUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -20,8 +18,6 @@ class AddUsernameAndPasswordToUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

@@ -3,16 +3,19 @@
  * Created by PhpStorm.
  * User: yhensel
  * Date: 11/02/16
- * Time: 9:51
+ * Time: 9:51.
  */
-
-namespace App;
-
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model {
+class Language extends Model
+{
     protected $fillable = [
         'name', 'profix',
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at',
     ];
 }

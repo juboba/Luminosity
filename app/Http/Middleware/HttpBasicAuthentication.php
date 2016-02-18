@@ -3,23 +3,19 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\AuthController as Auth;
-use Carbon\Carbon;
 
 class HttpBasicAuthentication
 {
     /**
-    *
-    *
-    **/
+     *
+     **/
     protected $authController;
 
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
+     * @internal param \Illuminate\Contracts\Auth\Factory $auth
      */
     public function __construct()
     {
@@ -29,13 +25,14 @@ class HttpBasicAuthentication
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-      //We don't know how we going to get user and password of the DOTW-API.
+        //We don't know how we going to get user and password of the DOTW-API.
       //The best practices are that it must be in URL, but it's a problem because
       //we received the request, we can't proccess the URL
 
@@ -52,11 +49,10 @@ class HttpBasicAuthentication
             return response('Unauthorized', 401, $headers);
         }*/
 
-        if(!$this->authController->checkAuthorization($request)) {
-          return response('Unauthorized.', 401);
+        if (!$this->authController->checkAuthorization($request)) {
+            return response('Unauthorized.', 401);
         };
 
         return $next($request);
     }
-
 }

@@ -9,22 +9,17 @@
 
 namespace App\Jobs;
 
-use Illuminate\Http\Request;
-
 use App\Country;
 use App\Language;
-use App\Task;
 use App\User;
 
 /**
  * Class CreateTaskJob.
- *
- * @package App\Jobs
  */
 class CreateTaskJob extends Job
 {
     /**
-     * @var array $requestParams Parameters received with the request.
+     * @var array Parameters received with the request.
      */
     protected $requestParams;
 
