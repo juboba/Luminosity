@@ -33,6 +33,11 @@ class UserController extends Model
      *
      * @apiVersion 0.1.0
      */
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
     public function index()
     {
         $users = User::all();
@@ -70,11 +75,12 @@ class UserController extends Model
      *
      * @apiVersion 0.1.0
      *
+     */
+
+    /**
      * @param Request $request
      * @param $uid
-     * @return JsonResponse user
-     * @internal param $id
-     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, $uid)
     {
@@ -151,10 +157,13 @@ class UserController extends Model
      *
      * @apiVersion 0.1.0
      *
-     * @param Request $request
-     *
-     * @return JsonResponse created user
      */
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
     public function store(Request $request)
     {
         $user = User::create([
@@ -201,10 +210,11 @@ class UserController extends Model
      * @apiSampleRequest http://localhost:80/api/v0_01/users/1/disable
      *
      * @apiVersion 0.1.0
-     *
+     */
+
+    /**
      * @param $uid
-     *
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function disable($uid)
     {
@@ -249,10 +259,11 @@ class UserController extends Model
      * @apiSampleRequest http://localhost:80/api/v0_01/users/1/enable
      *
      * @apiVersion 0.1.0
-     *
+     */
+
+    /**
      * @param $uid
-     *
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function enable($uid)
     {
@@ -296,6 +307,10 @@ class UserController extends Model
      * @apiSampleRequest http://localhost:80/api/v0_01/users/options
      *
      * @apiVersion 0.1.0
+     */
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function options()
     {

@@ -979,7 +979,7 @@ define({ "api": [
     "group": "User",
     "name": "Get_allowed_methods",
     "type": "get",
-    "url": "/users/{id}/disable",
+    "url": "/users/options",
     "title": "Get allowed methods.",
     "permission": [
       {

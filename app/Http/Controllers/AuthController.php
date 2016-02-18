@@ -25,6 +25,9 @@ class AuthController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/checkAuthorization
      * @apiVersion 0.1.0
+     */
+
+    /**
      * @param Request $request
      * @return bool
      */
@@ -57,6 +60,9 @@ class AuthController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/authorizeUser
      * @apiVersion 0.1.0
+     */
+
+    /**
      * @param Request $request
      * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -124,6 +130,9 @@ class AuthController extends Controller
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/existToken
      * @apiVersion 0.1.0
+     */
+
+    /**
      * @param $token
      * @return bool
      */
