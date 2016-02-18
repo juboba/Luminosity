@@ -14,15 +14,21 @@ class AuthController extends Controller {
 
     }
 
-    public function checkAuthorization(Request $request) {
-
-
-      //Check if exist token
-      $token = $this->getToken($request);
-        if ($token) {
-            return $this->existToken($token);
+    public function checkAuthorization(Request $request)
+    {
+       // dd($request->server->all());
+        if (!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
+            return false;
         }
-      return false;
+
+        $authorization_hash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
+        if ($authorization_hash[0] != 'Bearer') {
+            return false;
+        }
+        //Check if exist token
+        $token = $authorization_hash[1];
+
+        return $this->existToken($token);
     }
 
     public function authorizeUser (Request $request) {
@@ -56,28 +62,12 @@ class AuthController extends Controller {
           return response('Unauthorized: User inactive');
         }
       }
-      $passphrase = base64_encode($user.':'.$psswd);
+        $token = $db_user->getToken();
 
-      //Here we must make a curl for get authorization with DOTW server.
-      //https://www.traveltech.ro/alpha/api/v1/authorize.json
-      //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
-      //\"request\": {
-      //\"type\": 2
-              //}
-      //}"
-      //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
-
-       $token = hash('sha256', $passphrase);
-       $expiresAt = Carbon::now()->addMinutes(50);
-        $value = serialize($db_user);
-        Cache::put($token, $value, $expiresAt);
-
-       if(Cache::has($token)) {
-         //Cache::put('role'.$token, $db_user->role, $expiresAt); // store role in cache
-         return response()->json(['api_token' => $token]);
-       } else {
-         return response('Unauthorized: User or password are wrong', 401);;
-       }
+        if($token) {
+            return response()->json(['api_token' => $token]);
+        }
+        return response('Unauthorized: User or password are wrong', 401);
 
     }
 
@@ -95,17 +85,5 @@ class AuthController extends Controller {
       }
       return true;
     }
-    public function getToken(Request $request)
-    {
-        if(!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
-            return false;
-        }
 
-        $authorization_hash = explode(" ", $request->server->all()['HTTP_AUTHORIZATION']);
-
-        if($authorization_hash[0] != 'Bearer') {
-            return false;
-        }
-        return $authorization_hash[1];
-    }
 }

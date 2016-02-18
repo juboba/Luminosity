@@ -1,5 +1,40 @@
 [
   {
+    "group": "Roles",
+    "name": "GetRoles",
+    "type": "get",
+    "url": "/roles",
+    "title": "Get all user and their roles.",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i -H \"Authorization:Bearer <token>\" http://localhost:80/roles",
+        "type": "curl"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/roles"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "app/Http/Controllers/RolesController.php",
+    "groupTitle": "Roles"
+  },
+  {
     "group": "Task",
     "name": "GetTask",
     "type": "get",

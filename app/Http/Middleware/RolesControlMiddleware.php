@@ -5,9 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\AuthController;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\RolesController;
 use App\Role;
 
 class RolesControlMiddleware
@@ -15,28 +13,36 @@ class RolesControlMiddleware
     private $role;
     private $authController;
 
+    /**
+     * RolesControlMiddleware constructor.
+     */
     public function __construct()
     {
         $this->authController = new AuthController();
     }
 
     /**
-     * Handle an incoming request.
+     * Middleware handle
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param Request $request
+     * @param Closure $next
+     * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next)
     {
         // this method check if loged user has the role that allow get the request
-
         if(!$this->isUserAllowed($request)) {
           return response('Unauthorized.', 401);
         };
         return $next($request);
     }
 
+    /**
+     * check if loged user has the role that allow get the request
+     *
+     * @param Request $request
+     * @return bool
+     */
     public function isUserAllowed (Request $request)
     {
         // Get token
@@ -51,8 +57,7 @@ class RolesControlMiddleware
         $user = unserialize($serializeUser);
 
         // Get rol name
-        $idRole = $user->role;
-        $role = Role::find($idRole);
+        $role = Role::find($user->role);
         $rolname = $role->name;
 
         // Get allowed roles for the request

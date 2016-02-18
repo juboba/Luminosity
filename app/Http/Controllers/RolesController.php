@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yhensel
- * Date: 11/02/16
- * Time: 10:35
- */
 
 namespace App\Http\Controllers;
 
@@ -14,35 +8,28 @@ use App\Role;
 use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller {
-    protected $defaultRole = 'user';
-
     /**
-     * Return the tasks for a user given.
+     * Return all user and their roles.
      *
-     * @apiGroup Task
-     * @apiName GetUserTasks
-     * @api {get} /user/:id/tasks Get all tasks assigned to an user.
+     * @apiGroup Roles
+     * @apiName GetRoles
+     * @api {get} /roles Get all user and their roles.
      * @apiHeader {String} authorization Authorization value.
      * @apiExample {curl} Example usage:
-     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/user/1/tasks
-     * @apiIgnore Route not yet implemented.
+     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/roles
+     *
+     * @apiSampleRequest http://localhost:80/roles
      */
-    public function getRole($idRole) {
-        $role = Role::find($idRole);
-
-        if (!$role) {
-            return $this->defaultRole; // by default role
-        }
-        return $role->name;
-    }
-
-
     public function show()
     {
-        $users = DB::table('users')->get();
-        foreach($users as $user);{
-            $JsonUser[] = [$user->name => $user->role];
+        //$users = DB::table('users')->get();
+        $users = User::all();
+        foreach($users as $user) {
+            $JsonUser[] = [$user->name => $user->roles->name];
         }
+
         return response()->json($JsonUser);
     }
+
+
 }
