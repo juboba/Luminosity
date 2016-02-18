@@ -5,7 +5,7 @@
  * Date: 16/02/16
  * Time: 15:27.
  */
-namespace app\Http\Middleware;
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

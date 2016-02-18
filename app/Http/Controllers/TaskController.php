@@ -5,12 +5,13 @@
  * Date: 11/02/16
  * Time: 10:35.
  */
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Task;
 use App\User;
+use App\Jobs\CreateTaskJob;
 
 class TaskController extends Controller
 {

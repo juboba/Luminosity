@@ -5,7 +5,7 @@
  * Date: 11/02/16
  * Time: 15:49.
  */
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
