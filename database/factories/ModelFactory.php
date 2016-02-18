@@ -17,6 +17,14 @@ $factory->define(App\User::class, function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+        'surname' => $faker->name,
+        'username' => $faker->name,
+        'password' => base64_encode($faker->password),
+        'direction' => $faker->sentence,
+        'enabled' => true,
+        'birthday' => $faker->dateTime,
+        'language_id' => $faker->randomNumber,
+        'country_id' => $faker->randomNumber,
     ];
 });
 

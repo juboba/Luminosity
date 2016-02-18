@@ -78,7 +78,7 @@ $app->group(
             'middleware' => 'App\Http\Middleware\TaskValidate',
             'uses' => 'TaskController@store'
         ]);
-        $app->get('{id}', 'TaskController@show');
+        $app->get('{id}', 'TaskController@task');
         $app->delete('{id}', 'TaskController@destroyTask');
     }
 );

@@ -86,9 +86,10 @@ class TaskController extends Controller
      * @param $uid
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function task($uid)
+
+    public function task($id)
     {
-        $task = Task::findOrNew($uid);
+        $task = Task::findOrFail($id);
 
         return response()->json($task);
     }
@@ -234,7 +235,7 @@ class TaskController extends Controller
      */
     public function destroyTask($uid)
     {
-        $task = Task::findOrNew($uid);
+        $task = Task::findOrFail($id);
         $deleted = $task->delete();
 
         return response()->json(array('success' => $deleted));
