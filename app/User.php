@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace app;
 
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
@@ -20,7 +20,8 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'email', 'name', 'surname', 'password', 'username', 'birthday', 'direction', 'enabled', 'language_id', 'country_id',
+        'email', 'name', 'surname', 'password', 'username', 'birthday', 'direction',
+        'enabled', 'language_id', 'country_id',
     ];
 
     /**
@@ -35,16 +36,18 @@ class User extends Model implements
     /*
      * Get all of the task for the user
      */
-    public function tasks() {
+    public function tasks()
+    {
         return $this->hasMany(Task::class);
     }
 
-    public function country() {
+    public function country()
+    {
         return $this->belongsTo(Country::class);
     }
 
-    public function language() {
+    public function language()
+    {
         return $this->belongsTo(Language::class);
     }
-
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use App\Country;
 use App\Language;
 use App\User;
@@ -10,8 +9,6 @@ class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -30,5 +27,4 @@ class UserTableSeeder extends Seeder
             'language_id' => $language->id,
         ]);
     }
-
 }

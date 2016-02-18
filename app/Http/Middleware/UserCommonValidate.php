@@ -3,17 +3,23 @@
  * Created by PhpStorm.
  * User: yhensel
  * Date: 16/02/16
- * Time: 15:27
+ * Time: 15:27.
  */
-
-namespace App\Http\Middleware;
+namespace app\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserCommonValidate {
-    public function handle($request, Closure $next){
-
+class UserCommonValidate
+{
+    /**
+     * @param Request $request
+     * @param Closure $next
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function handle(Request $request, Closure $next)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|min:3',
             'password' => 'required|min:3',

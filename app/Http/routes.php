@@ -15,39 +15,70 @@ $app->get('/', function () use ($app) {
         return view('index');
 });
 
-$app->group(['prefix' => '/', 'namespace' => 'App\Http\Controllers' ], function() use ($app) {
-    $app->get('/', function() use ($app) {
-        return view('index');
-    });
-});
+$app->group(
+    [
+        'prefix' => '/',
+        'namespace' => 'App\Http\Controllers'
+    ],
+    function () use ($app) {
+        $app->get('/', function () use ($app) {
+            return view('index');
+        });
+    }
+);
 
 $app->get('/apidoc', function () use ($app) {
     return view('docs/index');
 });
 
-$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function ($app) {
-    $app->get('/login', 'AuthController@authorizeUser');
-    $app->post('/register', ['middleware' => 'App\Http\Middleware\UserCommonValidate', 'uses' => 'UserController@store']);
-});
+$app->group(
+    [
+        'prefix' => 'api',
+        'namespace' => 'App\Http\Controllers'
+    ],
+    function () use ($app) {
+        $app->get('/login', 'AuthController@authorizeUser');
+        $app->post('/register', [
+            'middleware' => 'App\Http\Middleware\UserCommonValidate',
+            'uses' => 'UserController@store'
+        ]);
+    }
+);
 
-$app->group(['prefix' => 'api/v0_01/users', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
-    $app->get('/', 'UserController@index');
-    $app->get('{id}', 'UserController@show');
-    $app->get('{id}/tasks', 'TaskController@allForUser');
+$app->group(
+    [
+        'prefix' => 'api/v0_01/users',
+        'namespace' => 'App\Http\Controllers',
+        'middleware' => 'auth'
+    ],
+    function ($app) {
+        $app->get('/', 'UserController@index');
+        $app->get('{id}', 'UserController@show');
+        $app->get('{id}/tasks', 'TaskController@allForUser');
 
-    $app->put('{id}', 'UserController@update');
-    $app->delete('{id}', 'UserController@destroy');
+        $app->put('{id}', 'UserController@update');
+        $app->delete('{id}', 'UserController@destroy');
 
-    $app->post('{id}/enable', 'UserController@enable');
-    $app->post('{id}/disable', 'UserController@disable');
-});
+        $app->post('{id}/enable', 'UserController@enable');
+        $app->post('{id}/disable', 'UserController@disable');
+    }
+);
 
-
-$app->group(['prefix' => 'api/v0_01/tasks', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
-    $app->options('/', 'TaskController@options');
-    $app->options('{id}', 'TaskController@options');
-    $app->get('/', 'TaskController@index');
-    $app->post('/', ['middleware' => 'App\Http\Middleware\TaskValidate', 'uses' => 'TaskController@store']);
-    $app->get('{id}', 'TaskController@show');
-    $app->delete('{id}', 'TaskController@destroyTask');
-});
+$app->group(
+    [
+        'prefix' => 'api/v0_01/tasks',
+        'namespace' => 'App\Http\Controllers',
+        'middleware' => 'auth'
+    ],
+    function () use ($app) {
+        $app->options('/', 'TaskController@options');
+        $app->options('{id}', 'TaskController@options');
+        $app->get('/', 'TaskController@index');
+        $app->post('/', [
+            'middleware' => 'App\Http\Middleware\TaskValidate',
+            'uses' => 'TaskController@store'
+        ]);
+        $app->get('{id}', 'TaskController@show');
+        $app->delete('{id}', 'TaskController@destroyTask');
+    }
+);

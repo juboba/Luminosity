@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: yhensel
  * Date: 11/02/16
- * Time: 9:48
+ * Time: 9:48.
  */
-
-namespace App;
-
+namespace app;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model {
+class Country extends Model
+{
     protected $fillable = [
         'name', 'profix',
     ];
@@ -20,8 +19,8 @@ class Country extends Model {
         'created_at', 'updated_at',
     ];
 
-    public function user() {
+    public function user()
+    {
         $this->hasMany('User');
     }
-
 }

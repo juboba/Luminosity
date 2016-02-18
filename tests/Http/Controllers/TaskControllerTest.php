@@ -3,8 +3,6 @@
 /**
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
-
-use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
 /**
@@ -46,7 +44,7 @@ class TaskControllerTest extends TestCase
     {
         // This is a workaround to make the expectsJobs binding work properly.
         // https://github.com/laravel/lumen-framework/issues/207#issuecomment-136305487
-        unset ($this->app->availableBindings['Illuminate\Contracts\Bus\Dispatcher']);
+        unset($this->app->availableBindings['Illuminate\Contracts\Bus\Dispatcher']);
         $this->expectsJobs('App\Jobs\CreateTaskJob');
 
         $this->post('/api/v0_01/tasks', $this->taskData);

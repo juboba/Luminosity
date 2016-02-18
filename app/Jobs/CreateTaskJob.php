@@ -7,24 +7,20 @@
 // artisan queue:listen --queue=tasks
 // curl -i -X POST -H "Content-Type:application/json" http://localhost:80/api/v0_01/tasks -d '{"name":"Lumen Jobs","description":"Learn to implement jobs", "language_id":"1"}'
 
-namespace App\Jobs;
+namespace app\Jobs;
 
 use Illuminate\Http\Request;
-
 use App\Country;
 use App\Language;
-use App\Task;
 use App\User;
 
 /**
  * Class CreateTaskJob.
- *
- * @package App\Jobs
  */
 class CreateTaskJob extends Job
 {
     /**
-     * @var array $requestParams Parameters received with the request.
+     * @var array Parameters received with the request.
      */
     protected $requestParams;
 

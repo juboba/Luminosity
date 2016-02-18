@@ -6,8 +6,6 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -15,7 +13,5 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
         $this->call(UserTableSeeder::class);
         $this->call(TaskTableSeeder::class);
-
     }
-
 }
