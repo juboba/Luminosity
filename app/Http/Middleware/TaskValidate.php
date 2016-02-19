@@ -20,9 +20,9 @@ class TaskValidate
      */
     public function handle(Request $request, Closure $next)
     {
-        $validate = Validator::make($request->request->all(), [
-            'name' => 'required|max:10',
-            'description' => 'required|max:300',
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:10',
+            'description' => 'required|min:3|max:300',
         ]);
 
         if ($validate->fails()) {

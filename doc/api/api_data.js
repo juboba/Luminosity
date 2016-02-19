@@ -241,93 +241,6 @@ define({ "api": [
   },
   {
     "group": "Task",
-    "name": "PutTask",
-    "type": "put",
-    "url": "/tasks/:id",
-    "title": "Update a task.",
-    "permission": [
-      {
-        "name": "login"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "authorization",
-            "description": "<p>Authorization value.</p>"
-          }
-        ]
-      }
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Mandatory task name.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Mandatory task description.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "language_id",
-            "description": "<p>Mandatory language ID.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Task name.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "description",
-            "description": "<p>Task description.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "language_id",
-            "description": "<p>Language ID.</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "http://localhost:80/api/v0_01/tasks/1"
-      }
-    ],
-    "version": "0.1.0",
-    "filename": "app/Http/Controllers/TaskController.php",
-    "groupTitle": "Task"
-  },
-  {
-    "group": "Task",
     "name": "TasksOptions",
     "type": "options",
     "url": "/tasks",
@@ -780,7 +693,7 @@ define({ "api": [
     "group": "User",
     "name": "GetUser",
     "type": "get",
-    "url": "/users/{id}",
+    "url": "/users/{id}{?tasks=true}",
     "title": "Get user by id.",
     "permission": [
       {
@@ -815,7 +728,7 @@ define({ "api": [
             "type": "Boolean",
             "optional": false,
             "field": "Tasks",
-            "description": "<p>Add the tasks to the response (Opcional).</p>"
+            "description": "<p>Add the tasks to the response (Optional).</p>"
           }
         ]
       }
@@ -892,7 +805,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i -H \"Authorization:Bearer <token>\" http://localhost:80/api/v0_01/users/1",
+        "content": "curl -i -H \"Authorization:Bearer <token>\" http://localhost:80/api/v0_01/users/1?tasks=true",
         "type": "curl"
       }
     ],

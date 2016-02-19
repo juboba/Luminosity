@@ -49,12 +49,12 @@ class UserController extends Controller
      * @apiGroup User
      * @apiName GetUser
      *
-     * @api {get} /users/{id} Get user by id.
+     * @api {get} /users/{id}{?tasks=true} Get user by id.
      * @apiPermission login
      *
      * @apiHeader {String} authorization Authorization value.
      * @apiParam {Number} Id User Id (Mandatory).
-     * @apiParam {Boolean} Tasks Add the tasks to the response (Opcional).
+     * @apiParam {Boolean} Tasks Add the tasks to the response (Optional).
      *
      * @apiSuccess {String} name User name.
      * @apiSuccess {String} username Nick name.
@@ -67,7 +67,7 @@ class UserController extends Controller
      * @apiSuccess {Integer} country_id Country Id.
      *
      * @apiExample {curl} Example usage:
-     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/users/1
+     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/users/1?tasks=true
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/users/1
      *

@@ -73,7 +73,7 @@ $app->group(
 
         //$app->put('{id}', 'UserController@update');
         $app->put('{id}', [
-            'middleware' => 'App\Http\Middleware\UserUpdateValidate',
+            'middleware' => 'App\Http\Middleware\UserCommonValidate',
             'uses' => 'UserController@update'
         ]);
 
@@ -100,6 +100,10 @@ $app->group(
         $app->post('/', [
             'middleware' => 'App\Http\Middleware\TaskValidate',
             'uses' => 'TaskController@store'
+        ]);
+        $app->put('{uid}/{tid}', [
+            'middleware' => 'App\Http\Middleware\TaskValidate',
+            'uses' => 'TaskController@update'
         ]);
         $app->get('{id}', 'TaskController@task');
         $app->delete('{id}', 'TaskController@destroyTask');

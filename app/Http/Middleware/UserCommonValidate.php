@@ -21,11 +21,16 @@ class UserCommonValidate
     public function handle(Request $request, Closure $next)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|min:3',
-            'password' => 'required|min:3',
-            'username' => 'required|min:3',
-            'language_id' => 'required',
-            'country_id' => 'required',
+            'email' => 'required|email',
+            'name' => 'min:3',
+            'surname' => 'min:3',
+            'direction' => 'min:3',
+            'enabled' => 'numeric|boolean',
+            'birthday' => 'date',
+            'username' => 'unique:users,username|required|min:3',
+            'password' => 'min:3',
+            'language_id' => 'integer',
+            'country_id' => 'integer'
         ]);
 
         if ($validator->fails()) {
