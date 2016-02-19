@@ -5,7 +5,7 @@
  * Date: 11/02/16
  * Time: 9:52.
  */
-namespace app;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +31,6 @@ class Task extends Model
      */
     public function language()
     {
-        $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 }

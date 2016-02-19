@@ -5,7 +5,7 @@
  * Date: 11/02/16
  * Time: 9:51.
  */
-namespace app;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,4 +18,9 @@ class Language extends Model
     protected $hidden = [
         'created_at', 'updated_at',
     ];
+
+    public function task()
+    {
+        $this->hasMany(Task::class);
+    }
 }
