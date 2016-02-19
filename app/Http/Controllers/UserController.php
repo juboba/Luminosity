@@ -299,7 +299,7 @@ class UserController extends Model
     public function setUserRol(int $idUser, int $idRole)
     {
         $user = User::find($idUser);
-        $user->update(['role' => $idRole]);
+        $user->update(['role_id' => $idRole]);
 
         return response()->json(['New IdRole' => $idRole]);
     }

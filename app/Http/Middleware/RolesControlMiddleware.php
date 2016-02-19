@@ -61,14 +61,14 @@ class RolesControlMiddleware
 
         // Get rol name
         $role = Role::find($user->role_id);
-        $rolname = $role->name;
+        $rolename = $role->name;
 
         // Get allowed roles for the request
         $actions = $request->route();
         $allowedRoles = $actions[1];
 
         // check
-        if(in_array($rolname, $allowedRoles['roles'])) {
+        if(in_array($rolename, $allowedRoles['roles'])) {
             return true;
         }
 
