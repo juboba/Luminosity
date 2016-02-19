@@ -178,12 +178,39 @@ class TaskController extends Controller
     }
 
 
+    /**
+     * Update a task.
+     *
+     * @apiGroup Task
+     * @apiName PutTask
+     *
+     * @api {post} /tasks/{uid}/{tid} Update an specific task.
+     * @apiPermission login
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiParam {String} name Mandatory task name.
+     * @apiParam {String} description Mandatory task description.
+     * @apiParam {Number} language_id Mandatory language ID.
+     *
+     * @apiSuccess {String} name Task name.
+     * @apiSuccess {String} description Task description.
+     * @apiSuccess {Number} language_id Language ID.
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1/1
+     * @apiVersion 0.1.0
+     */
+
+    /**
+     * @param Request $request
+     * @param $uid
+     * @param $tid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request, $uid, $tid)
     {
         $task = User::findOrFail($uid)->tasks()->find($tid);
 
-        //dd($task);
-        //die();
         $attributes = [
             'name' => $request->get('name'),
             'description' => $request->get('description'),

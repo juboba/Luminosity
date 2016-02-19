@@ -28,9 +28,9 @@ class UserCommonValidate
             'enabled' => 'numeric|boolean',
             'birthday' => 'date',
             'username' => 'unique:users,username|required|min:3',
-            'password' => 'min:3',
-            'language_id' => 'integer',
-            'country_id' => 'integer'
+            'password' => 'required|min:3',
+            'language_id' => 'required|exists:languages,id',
+            'country_id' => 'required|exists:countries,id'
         ]);
 
         if ($validator->fails()) {

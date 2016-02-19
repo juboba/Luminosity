@@ -23,6 +23,7 @@ class TaskValidate
         $validate = Validator::make($request->all(), [
             'name' => 'required|min:3|max:10',
             'description' => 'required|min:3|max:300',
+            'language_id' => 'exists:languages,id',
         ]);
 
         if ($validate->fails()) {

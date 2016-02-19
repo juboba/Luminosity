@@ -95,6 +95,52 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    /**
+     * Return updated user.
+     *
+     * @apiGroup User
+     * @apiName UpdateUser
+     *
+     * @api {put} /users/{uid} Update specified User.
+     * @apiPermission login
+     *
+     * @apiHeader {String} authorization Authorization value.
+     *
+     * @apiParam {String} name User's name.
+     * @apiParam {String} surname User's surname.
+     * @apiParam {Email} email User's email (Mandatory).
+     * @apiParam {String} direction User's address.
+     * @apiParam {Boolean} enabled User's status.
+     * @apiParam {Date} birthday User's date of birth.
+     * @apiParam {language_id} language_id User's language (Mandatory).
+     * @apiParam {country_id} country_id User's country (Mandatory).
+     * @apiParam {username} username User's username.
+     * @apiParam {password} username User's password (Mandatory).
+     *
+     * @apiSuccess {String} name User name.
+     * @apiSuccess {String} username Nick name.
+     * @apiSuccess {String} surname User surname.
+     * @apiSuccess {String} email User mail.
+     * @apiSuccess {String} address User Address.
+     * @apiSuccess {Boolean} enabled User status.
+     * @apiSuccess {String} birthday user Birthday.
+     * @apiSuccess {Integer} language_id Language Id.
+     * @apiSuccess {Integer} country_id Country Id.
+     *
+     * @apiExample {curl} Example usage:
+     *     curl -i -H "Authorization:Bearer <token>" http://localhost:80/api/v0_01/users/1
+     *
+     * @apiSampleRequest http://localhost:80/api/v0_01/users/1
+     *
+     * @apiVersion 0.1.0
+     *
+     */
+
+    /**
+     * @param Request $request
+     * @param $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request, $uid) {
         $user = User::findOrFail($uid);
 
@@ -108,6 +154,7 @@ class UserController extends Controller
             'language_id' => $request->get('language_id'),
             'country_id' => $request->get('country_id'),
             'username' => $request->get('username'),
+            'password' => base64_encode($request->get('password')),
         ];
 
         return response()->json($user->update($attributes), 200);
