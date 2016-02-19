@@ -216,7 +216,7 @@ class TaskController extends Controller
             'description' => $request->get('description'),
         ];
 
-        return response()->json($task->update($attributes),200);
+        return response()->json($task->update($attributes), 200);
     }
 
     /**

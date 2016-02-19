@@ -244,7 +244,7 @@ define({ "api": [
     "name": "PutTask",
     "type": "post",
     "url": "/tasks/{uid}/{tid}",
-    "title": "update an specific task.",
+    "title": "Update an specific task.",
     "permission": [
       {
         "name": "login"

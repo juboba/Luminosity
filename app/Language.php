@@ -19,8 +19,8 @@ class Language extends Model
         'created_at', 'updated_at',
     ];
 
-    public function task() {
+    public function task()
+    {
         $this->hasMany(Task::class);
     }
-
 }

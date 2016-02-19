@@ -141,7 +141,8 @@ class UserController extends Controller
      * @param $uid
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function update(Request $request, $uid) {
+    public function update(Request $request, $uid)
+    {
         $user = User::findOrFail($uid);
 
         $attributes = [
