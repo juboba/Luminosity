@@ -6,13 +6,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 //use Carbon\Carbon;
 use App\User;
+use App\Service\TokenService;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-    }
-
 
     /**
      * @param Request $request
@@ -20,17 +17,8 @@ class AuthController extends Controller
      */
     public function checkAuthorization(Request $request)
     {
-        if (!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
-            return false;
-        }
-
-        $authorization_hash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
-
-        if ($authorization_hash[0] != 'Bearer') {
-            return false;
-        }
-        //Check if exist token
-        $token = $authorization_hash[1];
+        $cache = app(TokenService::class);
+        $token = $cache->getTokenFromRequest($request);
 
         return $this->existToken($token);
     }
@@ -86,7 +74,10 @@ class AuthController extends Controller
         }
 
 
-        $token = $db_user->getToken();
+        $cache = app(TokenService::class);
+        $token = $cache->createToken($db_user);
+
+        //$token = $db_user->getToken();
 
         if ($token) {
             return response()->json(['api_token' => $token]);
@@ -102,11 +93,15 @@ class AuthController extends Controller
      */
     private function existToken($token)
     {
+
+        if (!$token) {
+            return false;
+        }
+
         //Search into Caché if the user:psswd has token associated.
         $serializeUser = Cache::get($token);
-        $user = unserialize($serializeUser);
 
-        if ($token == null || $user == null) {
+        if ($serializeUser == null) {
             return false;
         }
 

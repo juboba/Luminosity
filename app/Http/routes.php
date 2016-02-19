@@ -51,7 +51,7 @@ $app->group(
         'middleware' => 'auth'
     ],
     function ($app) {
-            $app->get('/', 'UserController@index');
+            $app->get('/', ['middleware' => 'role', 'roles' => ['admin' , 'manager'], 'uses' => 'UserController@index']);
             $app->get('{id}', 'UserController@show');
             $app->get('{id}/tasks', 'TaskController@allForUser');
             $app->put('{id}', 'UserController@update');

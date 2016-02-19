@@ -113,7 +113,7 @@ class UserController extends Model
         return response()->json($user);
 
     }*/
-    public function update(array $attributes, array $options)
+    public function update(array $attributes = [], array $options = [])
     {
         $this->table = 'users';
 

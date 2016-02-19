@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Role;
+use App\Service\TokenService;
 
 class RolesControlMiddleware
 {
@@ -31,6 +32,7 @@ class RolesControlMiddleware
     public function handle(Request $request, Closure $next)
     {
         // this method check if loged user has the role that allow get the request
+
         if(!$this->isUserAllowed($request)) {
           return response('Unauthorized.', 401);
         };
@@ -46,9 +48,10 @@ class RolesControlMiddleware
     public function isUserAllowed (Request $request)
     {
         // Get token
-        $token = $this->authController->getToken($request);  // BAD: waiting Aureo changes
+        $cache = app(TokenService::class);
+        $token = $cache->getTokenFromRequest($request);
 
-        if (!$token) {
+        if (!$cache) {
             return false;
         }
 
@@ -57,7 +60,7 @@ class RolesControlMiddleware
         $user = unserialize($serializeUser);
 
         // Get rol name
-        $role = Role::find($user->role);
+        $role = Role::find($user->role_id);
         $rolname = $role->name;
 
         // Get allowed roles for the request
