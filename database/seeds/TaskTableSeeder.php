@@ -16,6 +16,7 @@ class TaskTableSeeder extends Seeder
         $language = Language::find(1);
 
         Task::create([
+            'id' => 1,
             'name' => 'First task',
             'description' => 'My first new task',
             'user_id' => $user->id,

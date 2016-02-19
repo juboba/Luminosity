@@ -16,6 +16,7 @@ class UserTableSeeder extends Seeder
         $language = Language::find(1);
 
         User::create([
+            'id' => 1,
             'name' => 'John',
             'surname' => 'Doe',
             'username' => 'Doe',

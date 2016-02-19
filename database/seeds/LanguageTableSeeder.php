@@ -11,6 +11,7 @@ class LanguageTableSeeder extends Seeder
     public function run()
     {
         Language::create([
+            'id' => 1,
             'name' => 'Spanish',
             'prefix' => 'ES',
         ]);
