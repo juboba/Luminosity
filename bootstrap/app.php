@@ -24,8 +24,10 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-class_alias(\App\Facades\Token::class, 'Token');
 
+if (!class_exists('Token')) {
+    class_alias(\App\Facades\Token::class, 'Token');
+}
 
 $app->withEloquent();
 

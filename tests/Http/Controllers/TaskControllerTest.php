@@ -33,7 +33,7 @@ class TaskControllerTest extends TestCase
         static::$idUser = $user->id;
         static::$headers =  array(
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer '.$user->getToken(),
+            'Authorization' => 'Bearer '.Token::createToken($user),
         );
         $this->taskData['user_id'] = $user->id;
     }
