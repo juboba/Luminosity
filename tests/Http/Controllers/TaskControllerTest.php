@@ -4,6 +4,7 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use App\Task;
 
 /**
  * Class TaskControllerTest.
@@ -23,11 +24,14 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
         static::$userData = ['username' => 'test', 'password' => base64_encode('123'), 'language_id' => 1, 'country_id' => 1];
-        $user = \App\User::where('username', '=', 'test')->first();
+        $user = \App\User::withTrashed()->where('username', '=', 'test')->first();
 
         if (!$user)
         {
             $user = factory(\App\User::class)->create(static::$userData);
+        }
+        if ($user->trashed()) {
+            $user->restore();
         }
 
         static::$idUser = $user->id;
@@ -42,7 +46,7 @@ class TaskControllerTest extends TestCase
     {
         $user = \App\User::find(static::$idUser);
         $tasks = \App\Task::where('user_id', '=', $user->id);
-        $tasks->delete();
+        $tasks->forceDelete();
         if (null !== $user)
         {
             $user->delete();
@@ -130,7 +134,14 @@ class TaskControllerTest extends TestCase
         $task = factory(\App\Task::class)->create($this->taskData);
         $this->delete('/api/v0_01/tasks/'.$task->id, array(), static::$headers);
         $this->assertEquals(200, $this->response->status());
-        $this->notSeeInDatabase('tasks', ['id' => $task->id]);
+
+        // Check that the task cannot be found.
+        $deletedTask = Task::find($task->id);
+        $this->assertNull($deletedTask);
+        // Check that task was soft-deleted.
+        $deletedTask = Task::withTrashed()->find($task->id);
+        $this->assertNotNull($deletedTask);
+//        $this->notSeeInDatabase('tasks', ['id' => $task->id]);
     }
 
     /**

@@ -1,13 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: yhensel
  * Date: 11/02/16
  * Time: 9:52.
  */
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Task.
@@ -16,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +38,13 @@ class Task extends Model
     protected $hidden = [
         'created_at',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * Return the user that belongs to the task.
