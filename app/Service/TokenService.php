@@ -1,7 +1,6 @@
 <?php
 namespace App\Service;
 
-use App\Service\TokenInter;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Cache;

@@ -20,7 +20,7 @@ class TaskValidate
      */
     public function handle(Request $request, Closure $next)
     {
-        $validate = Validator::make($request->all(), [
+        $validate = Validator::make($request->request->all(), [
             'name' => 'required|min:3|max:10',
             'description' => 'required|min:3|max:300',
             'language_id' => 'exists:languages,id',
