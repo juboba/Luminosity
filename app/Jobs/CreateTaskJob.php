@@ -5,7 +5,8 @@
  */
 
 // artisan queue:listen --queue=tasks
-// curl -i -X POST -H "Content-Type:application/json" http://localhost:80/api/v0_01/tasks -d '{"name":"Lumen Jobs","description":"Learn to implement jobs", "language_id":"1"}'
+// curl -i -X POST -H "Content-Type:application/json" http://localhost:80/api/v0_01/tasks
+// -d '{"name":"Lumen Jobs","description":"Learn to implement jobs", "language_id":"1"}'
 
 namespace App\Jobs;
 

@@ -7,7 +7,8 @@ use App\User;
 use App\Role;
 use Illuminate\Support\Facades\DB;
 
-class RolesController extends Controller {
+class RolesController extends Controller
+{
     /**
      * Return all user and their roles.
      *
@@ -24,12 +25,10 @@ class RolesController extends Controller {
     {
         //$users = DB::table('users')->get();
         $users = User::all();
-        foreach($users as $user) {
-            $JsonUser[] = [$user->name => $user->roles->name];
+        foreach ($users as $user) {
+            $jsonUser[] = [$user->name => $user->roles->name];
         }
 
-        return response()->json($JsonUser);
+        return response()->json($jsonUser);
     }
-
-
 }

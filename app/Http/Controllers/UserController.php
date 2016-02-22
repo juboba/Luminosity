@@ -267,9 +267,9 @@ class UserController extends Controller
             $user->save();
 
             return response()->json($user);
-        } else {
-            return response()->json(array('ErrMsg' => 'User not found'), 404);
         }
+
+        return response()->json(array('ErrMsg' => 'User not found'), 404);
     }
 
     /**
@@ -315,9 +315,9 @@ class UserController extends Controller
             $user->save();
 
             return response()->json($user);
-        } else {
-            return response()->json(array('ErrMsg' => 'User not found'), 404);
         }
+
+        return response()->json(array('ErrMsg' => 'User not found'), 404);
     }
 
     /**

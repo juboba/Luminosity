@@ -15,12 +15,12 @@ class TokenService
             return false;
         }
 
-        $authorization_hash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
+        $authorizationHash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
 
-        if ($authorization_hash[0] != 'Bearer') {
+        if ($authorizationHash[0] != 'Bearer') {
             return false;
         }
-        $token = $authorization_hash[1];
+        $token = $authorizationHash[1];
 
         return $token;
     }
@@ -31,12 +31,14 @@ class TokenService
      * @param User $user
      * @return bool|string Return token. False on error.
      */
-    public function createToken(User $user) {
+    public function createToken(User $user)
+    {
 
         $passphrase = base64_encode($user->username.':'.$user->userpass);
         //Here we must make a curl for get authorization with DOTW server.
         //https://www.traveltech.ro/alpha/api/v1/authorize.json
-        //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
+        //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json"
+        // --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
         //\"request\": {
         //\"type\": 2
         //}

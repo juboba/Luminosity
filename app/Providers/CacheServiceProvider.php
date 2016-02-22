@@ -14,7 +14,7 @@ class CacheServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton('App\Service\TokenService', function() {
+        $this->app->singleton('App\Service\TokenService', function () {
             return new TokenService();
         });
 

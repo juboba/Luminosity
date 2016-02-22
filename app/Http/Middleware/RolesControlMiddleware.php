@@ -11,7 +11,6 @@ use App\Service\TokenService;
 
 class RolesControlMiddleware
 {
-    private $role;
     private $authController;
 
     /**
@@ -31,10 +30,10 @@ class RolesControlMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // this method check if loged user has the role that allow get the request
+        // this method check if logged user has the role that allow get the request
 
-        if(!$this->isUserAllowed($request)) {
-          return response('Unauthorized.', 401);
+        if (!$this->isUserAllowed($request)) {
+            return response('Unauthorized.', 401);
         };
         return $next($request);
     }
@@ -45,7 +44,7 @@ class RolesControlMiddleware
      * @param Request $request
      * @return bool
      */
-    public function isUserAllowed (Request $request)
+    public function isUserAllowed(Request $request)
     {
         // Get token
         $cache = app(TokenService::class);
@@ -68,14 +67,11 @@ class RolesControlMiddleware
         $allowedRoles = $actions[1];
 
         // check
-        if(in_array($rolename, $allowedRoles['roles'])) {
+        if (in_array($rolename, $allowedRoles['roles'])) {
             return true;
         }
 
         return false;
 
     }
-
-
-
 }
