@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * User model class.
+ */
+
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
@@ -10,11 +15,17 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
+/**
+ * Class User.
+ *
+ * @package App
+ */
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract
 {
     use Authenticatable, Authorizable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +36,7 @@ class User extends Model implements
         'enabled', 'language_id', 'country_id', 'role_id',
 
     ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -33,25 +45,43 @@ class User extends Model implements
     protected $hidden = [
         'password',
     ];
-    /*
-     * Get all of the task for the user
+
+    /**
+     * Get all tasks for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
 
+    /**
+     * Get user's country.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
 
+    /**
+     * Get user's language.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function language()
     {
         return $this->belongsTo(Language::class);
     }
 
-    public function roles()
+    /**
+     * Get user's role.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
     {
         return $this->hasOne(Role::class, 'id');
     }

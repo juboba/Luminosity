@@ -10,10 +10,14 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class UserController.
+ * Controller for User API.
+ *
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
-    protected $user;
-
     /**
      * Return all Users.
      *
@@ -33,7 +37,9 @@ class UserController extends Controller
      */
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Return all users.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Return the users list.
      */
 
     public function index()
@@ -76,9 +82,12 @@ class UserController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Return a specific user.
+     *
+     * @param Request $request The request.
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the user.
      */
     public function show(Request $request, $uid)
     {
@@ -137,9 +146,12 @@ class UserController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Update an user.
+     *
+     * @param Request $request The request.
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the user updated.
      */
     public function update(Request $request, $uid)
     {
@@ -201,8 +213,11 @@ class UserController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Create a new user.
+     *
+     * @param Request $request The request.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the new user.
      */
 
     public function store(Request $request)
@@ -254,8 +269,11 @@ class UserController extends Controller
      */
 
     /**
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Disable an user.
+     *
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the user.
      */
     public function disable($uid)
     {
@@ -303,8 +321,11 @@ class UserController extends Controller
      */
 
     /**
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Enable an user.
+     *
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the user.
      */
     public function enable($uid)
     {
@@ -337,6 +358,15 @@ class UserController extends Controller
      * @apiSampleRequest http://localhost:80/api/v0_01/users/1/role/2
      *
      * @apiVersion 0.1.0
+     */
+
+    /**
+     * Set the role of an user.
+     *
+     * @param int $idUser User UD.
+     * @param int $idRole Role ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the new role.
      */
     public function setUserRol(int $idUser, int $idRole)
     {
@@ -377,7 +407,9 @@ class UserController extends Controller
      */
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Get allowed methods.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the method names list.
      */
     public function options()
     {

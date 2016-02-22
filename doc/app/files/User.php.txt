@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * User model class.
+ */
+
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Http\Request;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -10,6 +15,11 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
+/**
+ * Class User.
+ *
+ * @package App
+ */
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract
@@ -23,7 +33,8 @@ class User extends Model implements
      */
     protected $fillable = [
         'email', 'name', 'surname', 'password', 'username', 'birthday', 'direction',
-        'enabled', 'language_id', 'country_id',
+        'enabled', 'language_id', 'country_id', 'role_id',
+
     ];
 
     /**
@@ -35,48 +46,44 @@ class User extends Model implements
         'password',
     ];
 
-    /*
-     * Get all of the task for the user
+    /**
+     * Get all tasks for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
 
+    /**
+     * Get user's country.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
 
+    /**
+     * Get user's language.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function language()
     {
         return $this->belongsTo(Language::class);
     }
 
     /**
-     * Get a token for an user.
+     * Get user's role.
      *
-     * @return bool|string Return token. False on error.
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getToken()
+    public function role()
     {
-        $passphrase = base64_encode($this->username.':'.$this->userpass);
-
-        //Here we must make a curl for get authorization with DOTW server.
-        //https://www.traveltech.ro/alpha/api/v1/authorize.json
-        //curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" --header "Authorization: Bearer nYulHlSOKc696Cx1Cp40ADa2H8XdVamJhf6JYLo" -d "{
-        //\"request\": {
-        //\"type\": 2
-        //}
-        //}"
-        //$expiresAt = Carbon::createFromTimestamp('Field expires of dowt response');
-
-        $token = hash('sha256', $passphrase);
-        $expiresAt = Carbon::now()->addMinutes(50);
-
-        Cache::put($token, $this->username, $expiresAt);
-
-        return (Cache::has($token)) ? $token : false;
+        return $this->hasOne(Role::class, 'id');
     }
 }
 

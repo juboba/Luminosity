@@ -9,29 +9,48 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Task.
+ *
+ * @package App
+ */
 class Task extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name', 'description', 'language_id',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
         'created_at',
     ];
 
-    /*
-     * return the user that belogs the task
+    /**
+     * Return the user that belongs to the task.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    /*
-     * Get language of the note
+    /**
+     * Get the language of the task.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function language()
     {
-        $this->hasOne(Language::class);
+        return $this->belongsTo(Language::class);
     }
 }
 

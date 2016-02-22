@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * Authorization service provider.
+ */
+
 namespace App\Providers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AuthServiceProvider.
+ *
+ * @package App\Providers
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**

@@ -1,20 +1,30 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
-|
-*/
+/**
+ * Application Routes.
+ *
+ * Here is where you can register all of the routes for an application.
+ * It is a breeze. Simply tell Lumen the URIs it should respond to
+ * and give it the Closure to call when that URI is requested.
+ *
+ */
 
+$app->post(
+    '/user/{id}/role/{role}',
+    ['middleware' => 'role', 'roles' => ['admin'], 'uses' => 'UserController@setUserRol']
+);
+$app->get('/roles', ['middleware' => 'auth', 'uses' => 'RolesController@show']);
+
+/**
+ * Root route
+ */
 $app->get('/', function () use ($app) {
         return view('index');
 });
 
+/**
+ * Route group for the angular view
+ */
 $app->group(
     [
         'prefix' => '/',
@@ -27,10 +37,16 @@ $app->group(
     }
 );
 
+/**
+ * Api doc Route
+ */
 $app->get('/apidoc', function () use ($app) {
     return view('docs/index');
 });
 
+/**
+ * DMZ routes
+ */
 $app->group(
     [
         'prefix' => 'api',
@@ -45,6 +61,9 @@ $app->group(
     }
 );
 
+/**
+ * Routes related with user operation API
+ */
 $app->group(
     [
         'prefix' => 'api/v0_01/users',
@@ -52,11 +71,16 @@ $app->group(
         'middleware' => 'auth'
     ],
     function ($app) {
-        $app->get('/', 'UserController@index');
+        $app->get('/', ['middleware' => 'role', 'roles' => ['admin' , 'manager'], 'uses' => 'UserController@index']);
         $app->get('{id}', 'UserController@show');
         $app->get('{id}/tasks', 'TaskController@allForUser');
 
-        $app->put('{id}', 'UserController@update');
+        //$app->put('{id}', 'UserController@update');
+        $app->put('{id}', [
+            'middleware' => 'App\Http\Middleware\UserCommonValidate',
+            'uses' => 'UserController@update'
+        ]);
+
         $app->delete('{id}', 'UserController@destroy');
 
         $app->post('{id}/enable', 'UserController@enable');
@@ -64,6 +88,9 @@ $app->group(
     }
 );
 
+/**
+ * Routes group to tasks related operations.
+ */
 $app->group(
     [
         'prefix' => 'api/v0_01/tasks',
@@ -77,6 +104,10 @@ $app->group(
         $app->post('/', [
             'middleware' => 'App\Http\Middleware\TaskValidate',
             'uses' => 'TaskController@store'
+        ]);
+        $app->put('{uid}/{tid}', [
+            'middleware' => 'App\Http\Middleware\TaskValidate',
+            'uses' => 'TaskController@update'
         ]);
         $app->get('{id}', 'TaskController@task');
         $app->delete('{id}', 'TaskController@destroyTask');

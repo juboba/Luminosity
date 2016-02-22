@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Authorization controller class.
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
@@ -8,12 +12,20 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Service\TokenService;
 
+/**
+ * Class AuthController.
+ * Controller for the authorization process.
+ *
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
-
     /**
-     * @param Request $request
-     * @return bool
+     * Check that the request comes with a valid token.
+     *
+     * @param Request $request The request.
+     *
+     * @return bool True if there is a valid token in the request. False otherwise.
      */
     public function checkAuthorization(Request $request)
     {
@@ -38,7 +50,10 @@ class AuthController extends Controller
      */
 
     /**
-     * @param Request $request
+     * Check user credentials and generate a token.
+     *
+     * @param Request $request The request.
+     *
      * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function authorizeUser(Request $request)
@@ -50,7 +65,7 @@ class AuthController extends Controller
         $authorizationHash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
 
         if ($authorizationHash[0] != 'Basic') {
-                return response('Unauthorized: You must send authorization correctly', 401);
+            return response('Unauthorized: You must send authorization correctly', 401);
         }
 
         $authorization = base64_decode($authorizationHash[1]);
@@ -88,7 +103,9 @@ class AuthController extends Controller
 
     /**
      * Return true if token is in cache, otherwise false.
-     * @param $token
+     *
+     * @param string $token The token.
+     *
      * @return bool
      */
     private function existToken($token)
@@ -98,7 +115,7 @@ class AuthController extends Controller
             return false;
         }
 
-        //Search into Caché if the user:psswd has token associated.
+        //Search into Cache if the user:psswd has token associated.
         $serializeUser = Cache::get($token);
 
         if ($serializeUser == null) {

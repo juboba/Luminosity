@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * Example listener.
+ */
+
 namespace App\Listeners;
 
 use App\Events\ExampleEvent;
 
+/**
+ * Class ExampleListener.
+ *
+ * @package App\Listeners
+ */
 class ExampleListener
 {
     /**

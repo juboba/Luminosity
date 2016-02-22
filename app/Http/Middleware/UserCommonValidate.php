@@ -1,21 +1,31 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: yhensel
  * Date: 16/02/16
  * Time: 15:27.
  */
+
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class UserCommonValidate.
+ *
+ * @package App\Http\Middleware
+ */
 class UserCommonValidate
 {
     /**
-     * @param Request $request
+     * Handle method.
+     *
+     * @param Request $request The request.
      * @param Closure $next
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next)

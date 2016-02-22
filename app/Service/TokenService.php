@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Token service class.
+ */
+
 namespace App\Service;
 
 use App\Service\TokenInter;
@@ -7,8 +12,20 @@ use App\User;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
+/**
+ * Class TokenService.
+ *
+ * @package App\Service
+ */
 class TokenService
 {
+    /**
+     * Get the token included in a request header.
+     *
+     * @param Request $request The request.
+     *
+     * @return bool|string Returns the token. False if the token was not found.
+     */
     public function getTokenFromRequest(Request $request)
     {
         if (!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
@@ -29,11 +46,11 @@ class TokenService
      * Get a token for an user.
      *
      * @param User $user
+     *
      * @return bool|string Return token. False on error.
      */
     public function createToken(User $user)
     {
-
         $passphrase = base64_encode($user->username.':'.$user->userpass);
         //Here we must make a curl for get authorization with DOTW server.
         //https://www.traveltech.ro/alpha/api/v1/authorize.json

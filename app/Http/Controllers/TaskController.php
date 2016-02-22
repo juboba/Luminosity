@@ -12,8 +12,17 @@ use App\Task;
 use App\User;
 use App\Jobs\CreateTaskJob;
 
+/**
+ * Class TaskController.
+ * Controller for Task API.
+ *
+ * @package App\Http\Controllers
+ */
 class TaskController extends Controller
 {
+    /**
+     * @var int Current user ID.
+     */
     protected $user = 1;
 
     /**
@@ -32,7 +41,9 @@ class TaskController extends Controller
      */
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Get all tasks assigned to the current user.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the tasks list.
      */
     public function index()
     {
@@ -42,7 +53,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Return all tasks.
+     * Return allowed methods.
      *
      * @apiGroup Task
      * @apiName TasksOptions
@@ -57,7 +68,9 @@ class TaskController extends Controller
      */
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Get allowed methods.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the method names list.
      */
     public function options()
     {
@@ -72,11 +85,11 @@ class TaskController extends Controller
      * @apiGroup Task
      * @apiName GetTask
      *
-     * @api {get} /tasks/:id Get a task.
+     * @api {get} /tasks/:id{?language=true} Get a task.
      * @apiPermission login
      *
      * @apiHeader {String} authorization Authorization value.
-     * @apiParam {Boolean} Language Add the language object to the response (Opcional).
+     * @apiParam {Boolean} Language Add the language object to the response (Optional).
      *
      * @apiSampleRequest http://localhost:80/api/v0_01/tasks/1
      * @apiVersion 0.1.0
@@ -84,17 +97,21 @@ class TaskController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @param $tid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Get a specific task.
+     *
+     * @param Request $request The request.
+     * @param int $tid Task ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the task.
      */
 
-    public function task(Request$request, $tid)
+    public function task(Request $request, $tid)
     {
         $task = Task::findOrFail($tid);
 
         if ($task) {
-            if ($request->get('language_id')) {
+            if ($request->get('language')) {
+                // Include the language object.
                 $task->language;
             }
         }
@@ -119,8 +136,11 @@ class TaskController extends Controller
      */
 
     /**
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Get all tasks assigned to an user.
+     *
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the tasks list.
      */
     public function allForUser($uid)
     {
@@ -152,8 +172,12 @@ class TaskController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Create a new task.
+     * Adds a job to the queue to create a new task.
+     *
+     * @param Request $request The request.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Always 'success' true.
      */
     public function store(Request $request)
     {
@@ -202,10 +226,13 @@ class TaskController extends Controller
      */
 
     /**
-     * @param Request $request
-     * @param $uid
-     * @param $tid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Update a task.
+     *
+     * @param Request $request The request.
+     * @param int $uid User ID.
+     * @param int $tid Task ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the task updated.
      */
     public function update(Request $request, $uid, $tid)
     {
@@ -237,8 +264,11 @@ class TaskController extends Controller
      */
 
     /**
-     * @param $uid
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Deletes a task.
+     *
+     * @param int $uid User ID.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns a boolean for 'success'.
      */
     public function destroyTask($uid)
     {

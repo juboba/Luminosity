@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Roles control middleware.
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -9,8 +13,16 @@ use Illuminate\Http\Request;
 use App\Role;
 use App\Service\TokenService;
 
+/**
+ * Class RolesControlMiddleware.
+ *
+ * @package App\Http\Middleware
+ */
 class RolesControlMiddleware
 {
+    /**
+     * @var AuthController Authentication controller.
+     */
     private $authController;
 
     /**
@@ -22,27 +34,28 @@ class RolesControlMiddleware
     }
 
     /**
-     * Middleware handle
+     * Middleware handle.
      *
-     * @param Request $request
+     * @param Request $request The request.
      * @param Closure $next
+     *
      * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next)
     {
-        // this method check if logged user has the role that allow get the request
-
         if (!$this->isUserAllowed($request)) {
             return response('Unauthorized.', 401);
         };
+
         return $next($request);
     }
 
     /**
-     * check if loged user has the role that allow get the request
+     * This method checks if the logged user has a role that allows to get the request.
      *
-     * @param Request $request
-     * @return bool
+     * @param Request $request The request.
+     *
+     * @return bool True if the user is allowed. False otherwise.
      */
     public function isUserAllowed(Request $request)
     {
@@ -72,6 +85,5 @@ class RolesControlMiddleware
         }
 
         return false;
-
     }
 }

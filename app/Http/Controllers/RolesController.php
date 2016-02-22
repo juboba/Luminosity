@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Roles API controller.
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,6 +11,11 @@ use App\User;
 use App\Role;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class RolesController.
+ *
+ * @package App\Http\Controllers
+ */
 class RolesController extends Controller
 {
     /**
@@ -21,12 +30,17 @@ class RolesController extends Controller
      *
      * @apiSampleRequest http://localhost:80/roles
      */
+
+    /**
+     * Get all users and their roles.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response Returns the users list.
+     */
     public function show()
     {
-        //$users = DB::table('users')->get();
         $users = User::all();
         foreach ($users as $user) {
-            $jsonUser[] = [$user->name => $user->roles->name];
+            $jsonUser[] = [$user->name => $user->role->name];
         }
 
         return response()->json($jsonUser);

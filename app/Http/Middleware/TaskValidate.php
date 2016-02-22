@@ -11,11 +11,20 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class TaskValidate.
+ * Validate the parameters of a task.
+ *
+ * @package App\Http\Middleware
+ */
 class TaskValidate
 {
     /**
-     * @param Request $request
+     * Handle method.
+     *
+     * @param Request $request The request.
      * @param Closure $next
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle(Request $request, Closure $next)
