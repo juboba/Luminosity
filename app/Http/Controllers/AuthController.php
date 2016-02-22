@@ -73,7 +73,7 @@ class AuthController extends Controller
             return response('Unauthorized: User inactive');
         }
 
-        $token = Token::createToken($db_user);
+        $token = Token::createToken($dbUser);
 
         if ($token) {
             return response()->json(['api_token' => $token]);
