@@ -11,6 +11,7 @@ class CountryTableSeeder extends Seeder
     public function run()
     {
         Country::create([
+            'id' => 1,
             'name' => 'Chile',
             'prefix' => 'CL',
         ]);

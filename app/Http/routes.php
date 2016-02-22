@@ -10,7 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->post('/user/{id}/role/{role}', ['middleware' => 'role', 'roles' => ['admin'], 'uses' => 'UserController@setUserRol']);
+$app->post(
+    '/user/{id}/role/{role}',
+    ['middleware' => 'role', 'roles' => ['admin'], 'uses' => 'UserController@setUserRol']
+);
 $app->get('/roles', ['middleware' => 'auth', 'uses' => 'RolesController@show']);
 
 /**

@@ -55,6 +55,4 @@ class User extends Model implements
     {
         return $this->hasOne(Role::class, 'id');
     }
-
-
 }

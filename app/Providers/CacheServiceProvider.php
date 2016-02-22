@@ -15,6 +15,7 @@ class CacheServiceProvider extends ServiceProvider
     {
 
         $this->app->singleton('token', function() {
+
             return new TokenService();
         });
 

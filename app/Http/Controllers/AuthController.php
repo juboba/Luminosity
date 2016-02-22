@@ -47,13 +47,13 @@ class AuthController extends Controller
             return response('Unauthorized: You must send authorization', 401);
         }
 
-        $authorization_hash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
+        $authorizationHash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
 
-        if ($authorization_hash[0] != 'Basic') {
+        if ($authorizationHash[0] != 'Basic') {
                 return response('Unauthorized: You must send authorization correctly', 401);
         }
 
-        $authorization = base64_decode($authorization_hash[1]);
+        $authorization = base64_decode($authorizationHash[1]);
         $authorization = explode(':', $authorization);
 
         $user = $authorization[0];
@@ -63,13 +63,13 @@ class AuthController extends Controller
             return response('Unauthorized: You must send authorization', 401);
         }
 
-        $db_user = User::where('username', '=', $user)->where('password', '=', base64_encode($psswd))->first();
+        $dbUser = User::where('username', '=', $user)->where('password', '=', base64_encode($psswd))->first();
 
-        if (!isset($db_user)) {
+        if (!isset($dbUser)) {
             return response('Unauthorized: User not exist');
         }
 
-        if ($db_user->enabled != true) {
+        if ($dbUser->enabled != true) {
             return response('Unauthorized: User inactive');
         }
 
@@ -103,5 +103,4 @@ class AuthController extends Controller
 
         return true;
     }
-
 }
