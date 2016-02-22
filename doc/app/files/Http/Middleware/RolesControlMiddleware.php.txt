@@ -6,12 +6,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Facades\Token;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Role;
-use App\Service\TokenService;
 
 /**
  * Class RolesControlMiddleware.
@@ -60,10 +60,10 @@ class RolesControlMiddleware
     public function isUserAllowed(Request $request)
     {
         // Get token
-        $cache = app(TokenService::class);
-        $token = $cache->getTokenFromRequest($request);
 
-        if (!$cache) {
+        $token = Token::getTokenFromRequest($request);
+
+        if (!$token) {
             return false;
         }
 

@@ -21,55 +21,7 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
-    function loadExternalCodeSnippets() {
-        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
-            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-            var language = 'php';
-
-            var code = document.createElement('code');
-            code.className = 'language-' + language;
-
-            pre.textContent = '';
-
-            code.textContent = 'Loading…';
-
-            pre.appendChild(code);
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', src, true);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-
-                    if (xhr.status < 400 && xhr.responseText) {
-                        code.textContent = xhr.responseText;
-
-                        Prism.highlightElement(code);
-                    }
-                    else if (xhr.status >= 400) {
-                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                    }
-                    else {
-                        code.textContent = '✖ Error: File does not exist or is empty';
-                    }
-                }
-            };
-
-            xhr.send(null);
-        });
-    }
-
-    $(document).ready(function(){
-        loadExternalCodeSnippets();
-    });
-    $('#source-view').on('shown', function () {
-        loadExternalCodeSnippets();
-    })
-</script>
-
+    
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -144,28 +96,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-24565843"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1175791735"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-24565843" class="accordion-body collapse in">
+            <div id="namespace-1175791735" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2132419151"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1830999859"></a>
                                 <a href="../namespaces/App.html" style="margin-left: 30px; padding-left: 0">App</a>
             </div>
-            <div id="namespace-2132419151" class="accordion-body collapse ">
+            <div id="namespace-1830999859" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-937024766"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-91265758"></a>
                                 <a href="../namespaces/App.Console.html" style="margin-left: 30px; padding-left: 0">Console</a>
             </div>
-            <div id="namespace-937024766" class="accordion-body collapse ">
+            <div id="namespace-91265758" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -180,10 +132,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-429351647"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1638836383"></a>
                                 <a href="../namespaces/App.Events.html" style="margin-left: 30px; padding-left: 0">Events</a>
             </div>
-            <div id="namespace-429351647" class="accordion-body collapse ">
+            <div id="namespace-1638836383" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -199,10 +151,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1135599298"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1194063597"></a>
                                 <a href="../namespaces/App.Exceptions.html" style="margin-left: 30px; padding-left: 0">Exceptions</a>
             </div>
-            <div id="namespace-1135599298" class="accordion-body collapse ">
+            <div id="namespace-1194063597" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -217,10 +169,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1312715708"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1637195894"></a>
                                 <a href="../namespaces/App.Facades.html" style="margin-left: 30px; padding-left: 0">Facades</a>
             </div>
-            <div id="namespace-1312715708" class="accordion-body collapse ">
+            <div id="namespace-1637195894" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -235,19 +187,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1124216040"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1236206620"></a>
                                 <a href="../namespaces/App.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
             </div>
-            <div id="namespace-1124216040" class="accordion-body collapse ">
+            <div id="namespace-1236206620" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1936891037"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-727601872"></a>
                                 <a href="../namespaces/App.Http.Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
             </div>
-            <div id="namespace-1936891037" class="accordion-body collapse ">
+            <div id="namespace-727601872" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -267,10 +219,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-6495609"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1253921753"></a>
                                 <a href="../namespaces/App.Http.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
             </div>
-            <div id="namespace-6495609" class="accordion-body collapse ">
+            <div id="namespace-1253921753" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -298,10 +250,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-48671246"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-702191945"></a>
                                 <a href="../namespaces/App.Jobs.html" style="margin-left: 30px; padding-left: 0">Jobs</a>
             </div>
-            <div id="namespace-48671246" class="accordion-body collapse ">
+            <div id="namespace-702191945" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -318,10 +270,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2036237543"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-810153715"></a>
                                 <a href="../namespaces/App.Listeners.html" style="margin-left: 30px; padding-left: 0">Listeners</a>
             </div>
-            <div id="namespace-2036237543" class="accordion-body collapse ">
+            <div id="namespace-810153715" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -336,10 +288,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1557850103"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1881063725"></a>
                                 <a href="../namespaces/App.Providers.html" style="margin-left: 30px; padding-left: 0">Providers</a>
             </div>
-            <div id="namespace-1557850103" class="accordion-body collapse ">
+            <div id="namespace-1881063725" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -357,10 +309,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-379474795"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-615536042"></a>
                                 <a href="../namespaces/App.Service.html" style="margin-left: 30px; padding-left: 0">Service</a>
             </div>
-            <div id="namespace-379474795" class="accordion-body collapse ">
+            <div id="namespace-615536042" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -398,294 +350,42 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content class">
+                <div class="span8 content namespace">
                     <nav>
-                                                <a href="../namespaces/App.html">\App</a> <i class="icon-level-up"></i>
+                                                <a href="../namespaces/App.html">\App</a>
                                             </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>\App</small>Facades</h1>
 
-                    <h1><small>\App</small>User</h1>
-                    <p><em>Class User.</em></p>
                     
                     
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/App.User.html#method_tasks" class="">tasks()</a><br />
-                                                                    <a href="../classes/App.User.html#method_country" class="">country()</a><br />
-                                                                    <a href="../classes/App.User.html#method_language" class="">language()</a><br />
-                                                                    <a href="../classes/App.User.html#method_role" class="">role()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/App.User.html#property_fillable" class="">$fillable</a><br />
-                                                                    <a href="../classes/App.User.html#property_hidden" class="">$hidden</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <em>No private methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No private properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                        
                     
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/User.html"><div class="path-wrapper">User.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">App</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                
-                                        <div class="namespace-wrapper">\Illuminate\Database\Eloquent\Model</div>
-                                                                                                    <div class="namespace-wrapper">\App\User</div>
-                            </dd>
-
-                                                                            <dt>Implements</dt>
-                                                        <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
-                                                                                <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
-                        
-                                                                                    <dt>Uses traits</dt>
-                                                        <dd>
-                                                                    <div class="namespace-wrapper">\Illuminate\Auth\Authenticatable</div>
-                                                            </dd>
-                                                                                <dd>
-                                                                    <div class="namespace-wrapper">\Laravel\Lumen\Auth\Authorizable</div>
-                                                            </dd>
-                        
-                        
-                        
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/App.Facades.Token.html">Token</a></td>
+                            <td><em>Class Token.</em></td>
+                        </tr>
                                         </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/App.html">\App</a></div>
+                                                                                        <div class="namespace-wrapper">\App\Facades</div>
+                        </dd>
+                    </dl>
                 </aside>
             </div>
 
-                        
-                                    <a id="properties" name="properties"></a>
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Properties</h2>
-                </div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_fillable" name="property_fillable" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$fillable</h3>
-                <pre class="signature">$fillable : array</pre>
-                <p><em>The attributes that are mass assignable.</em></p>
-                
-
-                                <h4>Type</h4>
-                array
-                                            </article>
+            
+            
         </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_hidden" name="property_hidden" class="anchor"></a>
-            <article class="property">
-                <h3 class="protected ">$hidden</h3>
-                <pre class="signature">$hidden : array</pre>
-                <p><em>The attributes excluded from the model&#039;s JSON form.</em></p>
-                
-
-                                <h4>Type</h4>
-                array
-                                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                            
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_tasks" name="method_tasks" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">tasks()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">tasks() : \Illuminate\Database\Eloquent\Relations\HasMany</pre>
-                <p><em>Get all tasks for the user.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \Illuminate\Database\Eloquent\Relations\HasMany
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_country" name="method_country" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">country()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">country() : \Illuminate\Database\Eloquent\Relations\BelongsTo</pre>
-                <p><em>Get user&#039;s country.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \Illuminate\Database\Eloquent\Relations\BelongsTo
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_language" name="method_language" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">language()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">language() : \Illuminate\Database\Eloquent\Relations\BelongsTo</pre>
-                <p><em>Get user&#039;s language.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \Illuminate\Database\Eloquent\Relations\BelongsTo
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_role" name="method_role" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">role()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">role() : \Illuminate\Database\Eloquent\Relations\HasOne</pre>
-                <p><em>Get user&#039;s role.</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \Illuminate\Database\Eloquent\Relations\HasOne
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                                                    </div>
     </section>
-
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">User.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/User.php.txt" class="language-php line-numbers"></pre>
-        </div>
-    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">
