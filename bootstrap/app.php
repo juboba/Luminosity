@@ -24,6 +24,8 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
+class_alias(\App\Facades\Token::class, 'Token');
+
 
 $app->withEloquent();
 
@@ -89,6 +91,8 @@ $app->routeMiddleware(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\CacheServiceProvider::class);
+
+
 
 /*
 |--------------------------------------------------------------------------

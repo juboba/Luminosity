@@ -8,7 +8,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
-//use Carbon\Carbon;
+use App\Facades\Token;
 use App\User;
 use App\Service\TokenService;
 
@@ -88,11 +88,7 @@ class AuthController extends Controller
             return response('Unauthorized: User inactive');
         }
 
-
-        $cache = app(TokenService::class);
-        $token = $cache->createToken($dbUser);
-
-        //$token = $dbUser->getToken();
+        $token = Token::createToken($dbUser);
 
         if ($token) {
             return response()->json(['api_token' => $token]);
