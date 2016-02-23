@@ -5,12 +5,14 @@
  */
 
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Illuminate\Http\Request;
 use App\Task;
+use App\Http\Controllers\TaskController;
 
 /**
  * Class TaskControllerTest.
  *
- * This class tests the correct behaviour of the Tasks API.
+ * This class tests the correct behaviour of the TaskController methods.
  */
 class TaskControllerTest extends TestCase
 {
@@ -47,7 +49,8 @@ class TaskControllerTest extends TestCase
         $user = \App\User::find(static::$idUser);
         $tasks = \App\Task::where('user_id', '=', $user->id);
         $tasks->forceDelete();
-        if (null !== $user) {
+        if (null !== $user)
+        {
             $user->delete();
         }
         parent::tearDown();
@@ -58,8 +61,21 @@ class TaskControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $this->get('/api/v0_01/tasks', static::$headers)
-            ->seeJson();
+        $controller = new TaskController();
+        $this->response = $controller->index();
+        $this->seeJson();
+        $this->assertEquals(200, $this->response->status());
+    }
+
+    /**
+     * Test options.
+     */
+    public function testOptions()
+    {
+        $controller = new TaskController();
+        $this->response = $controller->options();
+        $methods = json_decode($this->response->getContent());
+        $this->assertEquals(['options', 'get', 'post'], $methods);
         $this->assertEquals(200, $this->response->status());
     }
 
@@ -68,21 +84,34 @@ class TaskControllerTest extends TestCase
      */
     public function testTask()
     {
+        $request = new Request();
         $task = factory(\App\Task::class)->create($this->taskData);
-        $this->get('/api/v0_01/tasks/'.$task->id, static::$headers);
+        $controller = new TaskController();
+
+        // Test normal request.
+        $this->response = $controller->task($request, $task->id);
         $this->assertEquals(200, $this->response->status());
         $this->seeJson($this->taskData);
+
+        // Test request with language options
+        $request->query->set('language', true);
+        $this->response = $controller->task($request, $task->id);
+        $this->assertEquals(200, $this->response->status());
+        $data = $this->taskData;
+        $data['language'] = array('id' => 1, 'name' => 'Spanish', 'prefix' => 'ES');
+        $this->seeJson($data);
     }
 
     /**
-     * Test not found error when getting an invalid task.
+     * Test not found exception when getting an invalid task.
+     *
+     * @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function testTaskNotFound()
     {
-        $idTask = 0;
-        $this->get('/api/v0_01/tasks/'.$idTask, static::$headers);
-        $this->assertEquals(404, $this->response->status());
-//        $this->assertEquals('[]', $this->response->getContent());
+        $request = new Request();
+        $controller = new TaskController();
+        $this->response = $controller->task($request, 0);
     }
 
     /**
@@ -95,34 +124,13 @@ class TaskControllerTest extends TestCase
         unset($this->app->availableBindings['Illuminate\Contracts\Bus\Dispatcher']);
         $this->expectsJobs('App\Jobs\CreateTaskJob');
 
-        $this->post('/api/v0_01/tasks', $this->taskData, static::$headers);
+        $request = new Request([], $this->taskData);
+        $task = factory(\App\Task::class)->create($this->taskData);
+        $controller = new TaskController();
+        $this->response = $controller->store($request);
 
         $this->assertEquals(200, $this->response->status());
         $this->seeJsonEquals(['success' => true]);
-    }
-
-    /**
-     * Test 403 error when posting a task with incomplete data.
-     */
-    public function testStoreKO()
-    {
-        $this->post('/api/v0_01/tasks', ['name' => 'New task'], static::$headers);
-
-        $this->assertEquals(403, $this->response->status());
-        $this->seeJsonEquals(['description' => ['The description field is required.']]);
-    }
-
-    /**
-     * Test updateTask.
-     */
-    public function testUpdateTask()
-    {
-//        $task = factory(\App\Task::class)->create($this->taskData);
-//        $result = $this->put('/api/v0_01/tasks/'.$task->id, $this->taskData, static::$headers);
-//        $result->seeJson($this->taskData);
-//        $this->assertEquals(200, $this->response->status());
-//        $this->delete('/api/v0_01/tasks/'.$task->id, array(), static::$headers);
-        $this->markTestIncomplete('Method not fully implemented.');
     }
 
     /**
@@ -130,8 +138,10 @@ class TaskControllerTest extends TestCase
      */
     public function testDestroyTask()
     {
+        $controller = new TaskController();
         $task = factory(\App\Task::class)->create($this->taskData);
-        $this->delete('/api/v0_01/tasks/'.$task->id, array(), static::$headers);
+
+        $this->response = $controller->destroyTask($task->id);
         $this->assertEquals(200, $this->response->status());
 
         // Check that the task cannot be found.
@@ -140,16 +150,5 @@ class TaskControllerTest extends TestCase
         // Check that task was soft-deleted.
         $deletedTask = Task::withTrashed()->find($task->id);
         $this->assertNotNull($deletedTask);
-//        $this->notSeeInDatabase('tasks', ['id' => $task->id]);
-    }
-
-    /**
-     * Test 404 error when deleting an invalid task.
-     */
-    public function testDestroyTaskKO()
-    {
-        $idTask = 0;
-        $this->delete('/api/v0_01/tasks/'.$idTask, array(), static::$headers);
-        $this->assertEquals(404, $this->response->status());
     }
 }

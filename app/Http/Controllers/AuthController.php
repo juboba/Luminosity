@@ -71,6 +71,10 @@ class AuthController extends Controller
         $authorization = base64_decode($authorizationHash[1]);
         $authorization = explode(':', $authorization);
 
+        if (count($authorization) != 2) {
+            return response('Unauthorized: You must send authorization correctly', 401);
+        }
+
         $user = $authorization[0];
         $psswd = $authorization[1];
 
@@ -81,11 +85,11 @@ class AuthController extends Controller
         $dbUser = User::where('username', '=', $user)->where('password', '=', base64_encode($psswd))->first();
 
         if (!isset($dbUser)) {
-            return response('Unauthorized: User not exist');
+            return response('Unauthorized: User not exist', 401);
         }
 
         if ($dbUser->enabled != true) {
-            return response('Unauthorized: User inactive');
+            return response('Unauthorized: User inactive', 401);
         }
 
         $token = Token::createToken($dbUser);
