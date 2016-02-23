@@ -14,7 +14,7 @@ use App\Http\Controllers\TaskController;
  *
  * This class tests the correct behaviour of the TaskController methods.
  */
-class TaskControllerTest extends TestCase
+class TaskControllerMethodsTest extends TestCase
 {
 //    use DatabaseTransactions;
 
