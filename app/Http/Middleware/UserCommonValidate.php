@@ -44,7 +44,7 @@ class UserCommonValidate
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 403);
+            return response()->json($validator->errors(), 400);
         }
 
         return $next($request);
