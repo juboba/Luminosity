@@ -6,8 +6,9 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
-use Laravel\Lumen\Testing\DatabaseTransactions;
-use App\Task;
+namespace Tests\Http\Controllers;
+
+use Tests\TestCase;
 
 /**
  * Class AuthControllerTest.
@@ -22,7 +23,9 @@ class AuthControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        static::$userData = ['username' => 'test', 'password' => base64_encode('123'), 'language_id' => 1, 'country_id' => 1];
+        static::$userData = [
+            'username' => 'test', 'password' => base64_encode('123'), 'language_id' => 1, 'country_id' => 1
+        ];
         $user = \App\User::withTrashed()->where('username', '=', 'test')->first();
 
         if (!$user) {

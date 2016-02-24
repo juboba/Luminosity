@@ -4,8 +4,11 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
+namespace Tests\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Middleware\TaskValidate;
+use Tests\TestCase;
 
 /**
  * Class TaskControllerTest.
@@ -14,7 +17,9 @@ use App\Http\Middleware\TaskValidate;
  */
 class TaskValidateTest extends TestCase
 {
-    public $taskData = ['name' => 'Test task', 'description' => 'This is a test task.', 'language_id' => 1, 'user_id' => 1];
+    public $taskData = [
+        'name' => 'Test task', 'description' => 'This is a test task.', 'language_id' => 1, 'user_id' => 1
+    ];
 
     /**
      * Test handle.

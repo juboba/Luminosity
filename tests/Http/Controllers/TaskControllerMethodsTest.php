@@ -4,10 +4,14 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
+namespace Tests\Http\Controllers;
+
 use Laravel\Lumen\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
+use Tests\TestCase;
 use App\Task;
 use App\Http\Controllers\TaskController;
+use App\Facades\Token;
 
 /**
  * Class TaskControllerTest.
@@ -21,12 +25,16 @@ class TaskControllerMethodsTest extends TestCase
     public static $idUser;
     public static $headers = array();
     public static $userData = array();
-    public $taskData = ['name' => 'Test task', 'description' => 'This is a test task.', 'language_id' => 1, 'user_id' => 1];
+    public $taskData = [
+        'name' => 'Test task', 'description' => 'This is a test task.', 'language_id' => 1, 'user_id' => 1
+    ];
 
     public function setUp()
     {
         parent::setUp();
-        static::$userData = ['username' => 'test', 'password' => base64_encode('123'), 'language_id' => 1, 'country_id' => 1];
+        static::$userData = [
+            'username' => 'test', 'password' => base64_encode('123'), 'language_id' => 1, 'country_id' => 1
+        ];
         $user = \App\User::withTrashed()->where('username', '=', 'test')->first();
 
         if (!$user) {
@@ -49,8 +57,7 @@ class TaskControllerMethodsTest extends TestCase
         $user = \App\User::find(static::$idUser);
         $tasks = \App\Task::where('user_id', '=', $user->id);
         $tasks->forceDelete();
-        if (null !== $user)
-        {
+        if (null !== $user) {
             $user->delete();
         }
         parent::tearDown();

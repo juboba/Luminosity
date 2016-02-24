@@ -4,8 +4,11 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
+namespace Tests\Http\Controllers;
+
 use App\Jobs\CreateTaskJob;
 use App\Task;
+use Tests\TestCase;
 
 /**
  * Class CreateTaskJobTest.
@@ -19,7 +22,9 @@ class CreateTaskJobTest extends TestCase
      */
     public function testHandle()
     {
-        $requestParams = ['name' => 'Test task', 'description' => 'Task description', 'user_id' => 1, 'language_id' => 1];
+        $requestParams = [
+            'name' => 'Test task', 'description' => 'Task description', 'user_id' => 1, 'language_id' => 1
+        ];
         $object = new CreateTaskJob($requestParams);
         $this->response = $object->handle();
         $this->assertEquals(200, $this->response->getStatusCode());
