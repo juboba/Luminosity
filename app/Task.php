@@ -11,6 +11,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Event;
+use App\Events\TaskDeletedEvent;
 
 /**
  * Class Task.
@@ -63,5 +65,18 @@ class Task extends Model
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+    /**
+     * Override the delete method adding an event.
+     *
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        $result = parent::delete();
+        Event::fire(new TaskDeletedEvent($this));
+
+        return $result;
     }
 }

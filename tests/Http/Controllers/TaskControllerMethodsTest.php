@@ -132,7 +132,6 @@ class TaskControllerMethodsTest extends TestCase
         $this->expectsJobs('App\Jobs\CreateTaskJob');
 
         $request = new Request([], $this->taskData);
-        $task = factory(\App\Task::class)->create($this->taskData);
         $controller = new TaskController();
         $this->response = $controller->store($request);
 
@@ -148,6 +147,8 @@ class TaskControllerMethodsTest extends TestCase
         $controller = new TaskController();
         $task = factory(\App\Task::class)->create($this->taskData);
 
+        $this->expectsEvents('App\Events\TaskDeletedEvent');
+
         $this->response = $controller->destroyTask($task->id);
         $this->assertEquals(200, $this->response->status());
 
@@ -157,5 +158,6 @@ class TaskControllerMethodsTest extends TestCase
         // Check that task was soft-deleted.
         $deletedTask = Task::withTrashed()->find($task->id);
         $this->assertNotNull($deletedTask);
+        $this->assertEquals('manu es guay', $deletedTask->name);
     }
 }
