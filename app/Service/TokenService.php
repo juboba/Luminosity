@@ -23,18 +23,18 @@ class TokenService
      *
      * @param Request $request The request.
      *
-     * @return bool|string Returns the token. False if the token was not found.
+     * @return null|string Returns the token. False if the token was not found.
      */
     public function getTokenFromRequest(Request $request)
     {
         if (!isset($request->server->all()['HTTP_AUTHORIZATION'])) {
-            return false;
+            return null;
         }
 
         $authorizationHash = explode(' ', $request->server->all()['HTTP_AUTHORIZATION']);
 
         if ($authorizationHash[0] != 'Bearer') {
-            return false;
+            return null;
         }
         $token = $authorizationHash[1];
 
@@ -67,5 +67,29 @@ class TokenService
         Cache::put($token, $value, $expiresAt);
 
         return (Cache::has($token)) ? $token : false;
+    }
+
+
+    /**
+     * Return true if token is in cache, otherwise false.
+     *
+     * @param string $token The token.
+     *
+     * @return bool
+     */
+    public function existToken($token)
+    {
+        if (!$token) {
+            return false;
+        }
+
+        //Search into Cache if the user:psswd has token associated.
+        $serializeUser = Cache::get($token);
+
+        if ($serializeUser == null) {
+            return false;
+        }
+
+        return true;
     }
 }

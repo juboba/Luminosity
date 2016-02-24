@@ -29,10 +29,9 @@ class AuthController extends Controller
      */
     public function checkAuthorization(Request $request)
     {
-        $cache = app(TokenService::class);
-        $token = $cache->getTokenFromRequest($request);
+        $token = Token::getTokenFromRequest($request);
 
-        return $this->existToken($token);
+        return Token::existToken($token);
     }
 
     /**
@@ -101,27 +100,4 @@ class AuthController extends Controller
         return response('Unauthorized: User or password are wrong', 401);
     }
 
-    /**
-     * Return true if token is in cache, otherwise false.
-     *
-     * @param string $token The token.
-     *
-     * @return bool
-     */
-    private function existToken($token)
-    {
-
-        if (!$token) {
-            return false;
-        }
-
-        //Search into Cache if the user:psswd has token associated.
-        $serializeUser = Cache::get($token);
-
-        if ($serializeUser == null) {
-            return false;
-        }
-
-        return true;
-    }
 }
