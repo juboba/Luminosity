@@ -4,9 +4,12 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
+namespace Tests\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Service\TokenService;
 use App\Task;
+use Tests\TestCase;
 
 /**
  * Class TokenServiceTest.

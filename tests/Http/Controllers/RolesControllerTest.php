@@ -1,7 +1,12 @@
 <?php
+
 /**
  * @author Manuel Serrano Rodriguez <mserranos@atsistemas.com>
  */
+
+namespace Tests\Http\Controllers;
+
+use Tests\TestCase;
 
 /**
  * Class RolesControllerTest.
@@ -19,5 +24,4 @@ class RolesControllerTest extends TestCase
             ->seeJson();
         $this->assertEquals(200, $this->response->status());
     }
-
 }

@@ -1,6 +1,16 @@
 <?php
 
+/**
+ * Example test class.
+ */
 
+namespace Tests;
+
+use Tests\TestCase;
+
+/**
+ * Class ExampleTest
+ */
 class ExampleTest extends TestCase
 {
     /**
@@ -10,8 +20,6 @@ class ExampleTest extends TestCase
     {
         $this->get('/');
 
-        $this->assertEquals(
-            $this->response->getContent(), $this->app->version()
-        );
+        $this->assertEquals($this->response->getContent(), $this->app->version());
     }
 }
