@@ -139,7 +139,6 @@ class TaskControllerTest extends TestCase
     {
         $task = factory(\App\Task::class)->create($this->taskData);
         $this->delete('/api/v0_01/tasks/'.$task->id, array(), static::$headers);
-        print_r($this->response->getContent());
         $this->assertEquals(200, $this->response->status());
 
         // Check that the task cannot be found.
