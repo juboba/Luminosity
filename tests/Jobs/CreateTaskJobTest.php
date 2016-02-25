@@ -4,7 +4,7 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
-namespace Tests\Http\Controllers;
+namespace Tests\Jobs;
 
 use App\Jobs\CreateTaskJob;
 use App\Task;

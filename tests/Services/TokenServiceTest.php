@@ -4,7 +4,7 @@
  * @author Áureo Ares <aares.brenes@atsistemas.com>
  */
 
-namespace Tests\Http\Controllers;
+namespace Tests\Services;
 
 use Illuminate\Http\Request;
 use App\Service\TokenService;
@@ -44,11 +44,11 @@ class TokenServiceTest extends TestCase
         $authString = 'Be '.$token;
         $request = new Request([], [], [], [], [], ['HTTP_AUTHORIZATION' => $authString]);
         $result = $object->getTokenFromRequest($request);
-        $this->assertFalse($result);
+        $this->assertNull($result);
 
         // No authorization.
         $request = new Request([], [], [], [], [], []);
         $result = $object->getTokenFromRequest($request);
-        $this->assertFalse($result);
+        $this->assertNull($result);
     }
 }

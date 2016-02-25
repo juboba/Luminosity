@@ -158,6 +158,5 @@ class TaskControllerMethodsTest extends TestCase
         // Check that task was soft-deleted.
         $deletedTask = Task::withTrashed()->find($task->id);
         $this->assertNotNull($deletedTask);
-        $this->assertEquals('manu es guay', $deletedTask->name);
     }
 }

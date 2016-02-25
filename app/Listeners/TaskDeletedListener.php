@@ -32,8 +32,7 @@ class TaskDeletedListener
      */
     public function handle(TaskDeletedEvent $event)
     {
-        echo 'lalala';
         $event->task->name = 'manu es guay';
-        $event->task->save();
+        $event->task->update();
     }
 }
