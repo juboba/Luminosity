@@ -29,6 +29,10 @@ if (!class_exists('Token')) {
     class_alias(\App\Facades\Token::class, 'Token');
 }
 
+if (!class_exists('UserNaming')) {
+    class_alias(\AAres\UserNaming\UserNaming::class, 'UserNaming');
+}
+
 $app->withEloquent();
 
 /*
@@ -93,6 +97,7 @@ $app->routeMiddleware(
 // $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\CacheServiceProvider::class);
+$app->register(AAres\UserNaming\UserNamingServiceProvider::class);
 
 
 

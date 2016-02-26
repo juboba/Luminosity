@@ -19,8 +19,13 @@ $app->get('/roles', ['middleware' => 'auth', 'uses' => 'RolesController@show']);
  * Root route
  */
 $app->get('/', function () use ($app) {
-        return view('index');
+    return view('index');
 });
+
+/**
+ * Test route
+ */
+$app->get('/something', 'TestController@test');
 
 /**
  * Route group for the angular view

@@ -1,0 +1,14 @@
+{
+    "name": "aares/usernaming",
+    "description": "Random names for users",
+    "require": {
+        "illuminate/support": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "Áureo Ares",
+            "email": "aares.brenes@atsistemas.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
